@@ -5,3 +5,14 @@
 *.md text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
+*.json text eol=lf
+*.csv text eol=lf
+*.svg text eol=lf
+.editorconfig text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+bench/requirements.txt text eol=lf
+
+# Preserve raw tool output and the plot generator's formatting verbatim.
+bench/results/** text eol=lf -whitespace
+docs/assets/*.svg text eol=lf -whitespace

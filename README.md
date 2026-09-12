@@ -1,291 +1,131 @@
-# Wave Function Collapse : Projet 801
+# Wave Function Collapse: Project 801
 
-Implémentation C++17 du *Wave Function Collapse overlapping model* (WFC), avec
-trois backends : série, OpenMP (tâches explicites), Kokkos. Le sujet complet
-est dans [`README.pdf`](README.pdf).
+The serial C++17 solver completes the recorded **128 × 128** binary workload in **3.35 s median**, versus **8.54 s with OpenMP at eight threads** under the pinned WSL2 CPU and passive-wait protocol. All **50 measured solves** succeeded. [Raw measurements](bench/results/2026-09-12/runs.csv).
 
-## Documentation
+## Abstract
 
-Rapport et présentation (LaTeX, à jour) :
-- [`rapport/main.pdf`](rapport/main.pdf) : rapport académique CHPS0801 (99 pages)
-- [`rapport/slides.pdf`](rapport/slides.pdf) : présentation 15 min (25 slides)
+This CHPS0801 coursework project generates grids from local patterns extracted from an example. It implements the overlapping Wave Function Collapse model with serial, OpenMP and optional Kokkos backends. A shared candidate representation and seeded search support comparisons without replacing the algorithm. The current CPU experiment checks two output sizes and four OpenMP thread counts with common seeds. It finds no OpenMP speedup on the selected binary workload. The result applies to this sample, build, affinity policy and waiting mode; Kokkos, GPU execution and the Unreal Engine demonstration remain unmeasured in this revision.
 
-Documentation technique :
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) : modules et leurs dépendances
-- [docs/ALGORITHM.md](docs/ALGORITHM.md) : algorithme WFC tel qu'implémenté
-- [docs/CHOICES.md](docs/CHOICES.md) : décisions techniques et raisons
-- [docs/BUILD.md](docs/BUILD.md) : build sous Linux / Windows / Romeo + Kokkos
-- [docs/TESTING.md](docs/TESTING.md) : couverture des tests
-- [docs/PERFORMANCE.md](docs/PERFORMANCE.md) : analyse perf avec données Romeo
-- [docs/results.md](docs/results.md) : galerie d'images générées
-- [docs/benchmark.md](docs/benchmark.md) : analyse de scaling SLURM
-- [docs/ue5_integration.md](docs/ue5_integration.md) : démo Unreal Engine 5 (optionnelle, voir `BUILD_DUNGEON`)
+## Context and problem
 
-## Ce que ça fait
+The generator extracts square patterns from a supplied grid and constructs overlap constraints. It repeatedly selects a low-entropy cell, chooses a pattern and propagates restrictions. Contradictions can exhaust the retry budget, so local pattern matching does not guarantee that every requested output can be generated. The original coursework specification is [README.pdf](README.pdf).
 
-Lit une grille échantillon, en extrait toutes les tuiles `N × N`, calcule
-leurs règles d'adjacence, puis génère une nouvelle grille (taille libre)
-qui ne contient localement que des tuiles vues dans l'échantillon.
+## Approach
 
-Backends :
-- `wfc_serial` : référence séquentielle
-- `wfc_omp` : parallélisé avec `#pragma omp task` (sélection min-entropie + propagation BFS)
-- `wfc_kokkos` : variante Kokkos (`parallel_for` + atomics) pour comparaison
+`TileSet` stores patterns and frequencies, `OverlapRules` stores compatibility masks, and `Wave` stores remaining candidates in flat buffers of `uint64_t` words. The serial backend is the reference for OpenMP's task-based selection and propagation. The benchmark leaves symmetry expansion, parallel attempts and backtracking at their existing defaults. [Design and comparison boundaries](docs/design.md).
 
-Les trois produisent un output bit-identique pour un même seed.
-
-## Galerie
-
-Trois échantillons inspirés du papier WFC original (skyline urbain,
-plante avec fleurs, dungeon binaire) tournés à `N=3` avec
-`--parallel-attempts 8` pour absorber le taux de contradiction de N=3
-sans coût wallclock.
-
-| | Seed 1 | Seed 7 | Seed 42 |
-|---|---|---|---|
-| **skyline** | ![1](docs/figures/results/gallery/skyline_seed1.png) | ![7](docs/figures/results/gallery/skyline_seed7.png) | ![42](docs/figures/results/gallery/skyline_seed42.png) |
-| **plant** | ![1](docs/figures/results/gallery/plant_seed1.png) | ![7](docs/figures/results/gallery/plant_seed7.png) | ![42](docs/figures/results/gallery/plant_seed42.png) |
-| **rooms** | ![1](docs/figures/results/gallery/rooms_seed1.png) | ![7](docs/figures/results/gallery/rooms_seed7.png) | ![42](docs/figures/results/gallery/rooms_seed42.png) |
-
-Reproductible avec `./scripts/render_gallery.sh build`. La galerie
-complète avec les samples d'entrée est dans [docs/results.md](docs/results.md).
-
-## Build
-
-Pré-requis : un compilateur C++17 avec OpenMP, CMake ≥ 3.16.
-Plateformes vérifiées :
-- **Linux** : g++ 13.3 sur Ubuntu 24.04 / WSL2, gcc 14.2 sur Romeo (RHEL 9, AMD EPYC 9654 192 cores).
-- **Windows natif** : MSYS2 + MinGW-w64 UCRT (g++ 16.1, OpenMP 5.2, ninja).
-
-```bash
-cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DUSE_OMP=ON
-cmake --build build -j
+```mermaid
+flowchart LR
+  A[Sample] --> B[Patterns and frequencies]
+  B --> C[Overlap constraints]
+  C --> D[Candidate wave]
+  D --> E[Serial or OpenMP search]
+  E --> F[Grid and success status]
 ```
 
-Pour activer Kokkos en plus (testé avec Kokkos 4.4.01, backends OPENMP+SERIAL) :
+## Results
+
+Median solve time, with the interquartile range in parentheses, from five fixed seeds after one excluded warm-up:
+
+| Backend | 64 × 64, seconds | 128 × 128, seconds |
+|---|---:|---:|
+| Serial | 0.2121 (0.0028) | 3.3477 (0.0179) |
+| OpenMP, 1 thread | 0.2197 (0.0016) | 3.4645 (0.0404) |
+| OpenMP, 2 threads | 0.5694 (0.0065) | 4.1217 (0.2929) |
+| OpenMP, 4 threads | 0.9478 (0.0642) | 5.3001 (0.2760) |
+| OpenMP, 8 threads | 1.6757 (0.0298) | 8.5365 (0.1951) |
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/benchmark-dark.svg">
+  <img alt="Median WFC solve time with interquartile bars, and speedup relative to serial. OpenMP is slower for both measured grid sizes." src="docs/assets/benchmark-light.svg">
+</picture>
+
+The ratio on the right is serial median divided by backend median; values below one indicate a slowdown. The measurements use `binary_5x5.txt`, tile size 2, one seed-41 warm-up and seeds 42 through 46. [Full protocol, environment and raw evidence](docs/results.md).
+
+## What works
+
+- The CPU Release build completed and all thirteen CTest suites passed. These include successful serial/OpenMP output comparisons, input structures and contradiction paths. [Build/test log](bench/results/2026-09-12/build-tests.log).
+- All fifty measured benchmark solves report success; the ten excluded warm-ups also succeeded. [Original per-process CSV files](bench/results/2026-09-12/raw/).
+- The collector records commands, affinities, versions, hashes and failure status. Both theme variants of the figure are generated from the committed CSV summary by [bench/plot.py](bench/plot.py).
+
+## What does not work
+
+- OpenMP does not accelerate this workload under the recorded waiting and affinity settings. Task and synchronization overhead are possible causes; they were not separately profiled in this experiment.
+- A 3 × 3 checkerboard request with tile size 2, seed 42 and one attempt reports `success: no`, yet the CLI exits with code 0. A caller must inspect the success status. [Captured failure](bench/results/2026-09-12/contradiction.json).
+- The legacy `scripts/run_benchmark.sh` passes a positional sample to an executable that requires `--sample`. Use `bench/run.sh` for the current protocol.
+- The optional dungeon build emits a `-Wcomment` warning from a nested marker in a source comment. Kokkos, GPU, sanitizers, LaTeX compilation and the Unreal Engine editor were not revalidated. Hosted CI remains pending publication.
+
+## Limits and scope
+
+This is a finite CPU comparison on one binary sample. The guest topology, CPU frequency, operating-system scheduling and OpenMP wait policy can affect results. The five common seeds include variation in generated problems as well as timing noise; the IQR is not a confidence interval. No peak-memory, GPU, cluster or editor performance claim is made. Historical results and illustrations remain separate from the current evidence.
+
+## Reproducibility
+
+| Component | Recorded setting |
+|---|---|
+| CPU | Intel Core i9-13900H; WSL reports 20 logical CPUs |
+| Affinity | Guest CPU IDs 0, 2, 4, 6, 8, 10, 12, 14; first requested count per configuration |
+| Memory | 16149672 kB visible to WSL; no per-solver peak measurement |
+| System | Ubuntu 24.04.4 LTS, WSL2 kernel 6.6.87.2 |
+| Build | GCC 13.3.0, Release, `-O3 -march=native`, OpenMP on, Kokkos/LTO off |
+| Tools | CMake 3.28.3; libgomp1 14.2.0-4ubuntu2~24.04.1 |
+| Python | 3.12.3 for collection; [pinned plotting packages](bench/requirements.txt) |
+| OpenMP | Dynamic teams off, close binding, core places, passive waiting |
+| Input | `samples/binary_5x5.txt`, tile size 2, maximum five attempts |
+| Repetitions | One excluded warm-up; five measured seeds 42, 43, 44, 45, 46 |
+| Statistic | Median and inclusive linear quartiles of existing `solve_s` |
+
+From a clone of this branch, build with the commands below, then run:
 
 ```bash
-./scripts/build_kokkos.sh   # télécharge et installe Kokkos dans external/
-cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DUSE_OMP=ON -DUSE_KOKKOS=ON \
-      -DKokkos_ROOT=$PWD/external/kokkos/install
-cmake --build build -j
+BUILD_DIR=build PYTHON=python3 bash bench/run.sh
+python3 -m venv .venv
+.venv/bin/python -m pip install -r bench/requirements.txt
+.venv/bin/python bench/plot.py --input bench/results/local/summary.csv
 ```
 
-## Démo Unreal Engine 5 (optionnel)
+To redraw the committed measurement without rerunning solvers, use `.venv/bin/python bench/plot.py`. The collector requires Linux affinity support and eight distinct guest-reported cores; it fails clearly if those conditions are unavailable. The record includes the exact compiler and OpenMP runtime versions in [environment.json](bench/results/2026-09-12/environment.json).
 
-| | | |
-|---|---|---|
-| ![](docs/figures/ue5_dungeon_01.png) | ![](docs/figures/ue5_dungeon_02.png) | ![](docs/figures/ue5_dungeon_03.png) |
-
-*Sorties du plugin `WFCDungeon` dans UE 5.7 : grille `samples/rooms.txt`
-24×24 résolue par `wfc_dungeon`, JSON parsé par l'acteur
-`ADungeonGenerator` qui spawn les meshes (sol/mur/porte) cellule par
-cellule, ferme le périmètre via `bWallOnBorders`, scatter les NPC
-spawners et pickups sur les cellules walkable, place 4 PlayerStarts au
-centre et un `NavMeshBoundsVolume` couvrant la map.*
-
-Cible CMake additionnelle `wfc_dungeon` qui génère un JSON pour un
-plugin UE 5.7 (`ue5_plugin/WFCDungeon/`). Ne touche ni au benchmark ni
-aux solveurs parallèles : utilise uniquement `WFCSolverSerial` via
-l'interface publique. Activer avec `-DBUILD_DUNGEON=ON` :
+## Installation and usage
 
 ```bash
-cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DUSE_OMP=ON -DBUILD_DUNGEON=ON
-cmake --build build -j
-./build/wfc_dungeon samples/rooms.txt --rows 24 --cols 24 \
-    -N 2 --seed 42 --connectivity-attempts 5 -o dungeon.json
-```
-
-Le pipeline UE5 (asset → JSON → spawn de meshes) est documenté dans
-[docs/ue5_integration.md](docs/ue5_integration.md). Sans
-`-DBUILD_DUNGEON=ON`, la cible n'est pas générée et le build reste
-identique au pipeline HPC.
-
-Aucun impact perf : la cible `wfc_dungeon` n'est pas liée au
-`wfc_benchmark`, aux suites de tests, ni aux solveurs parallèles.
-Vérifié localement (binary 64×64 best-of-3) avec et sans
-`-DBUILD_DUNGEON=ON` : mêmes temps serial / omp1 / omp4 / omp8 dans
-le bruit de mesure.
-
-## Tests
-
-```bash
+sudo apt-get install build-essential cmake python3-venv
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
+  -DUSE_OMP=ON -DUSE_KOKKOS=OFF -DBUILD_DUNGEON=ON
+cmake --build build --parallel 2
 ctest --test-dir build --output-on-failure
+
+./build/wfc_serial samples/binary_5x5.txt --rows 64 --cols 64 -N 2 --seed 42
+./build/wfc_omp samples/binary_5x5.txt --rows 64 --cols 64 -N 2 --seed 42 --threads 4
 ```
 
-10 suites cœur (`test_bitset`, `test_grid`, `test_grid_io`,
-`test_tileset`, `test_overlap`, `test_wave`, `test_solver_common`,
-`test_solver`, `test_edge_cases`, `test_parallel_attempts`) plus trois
-conditionnels (`test_solver_omp`, `test_solver_kokkos`,
-`test_kokkos_autoinit`) qui vérifient le déterminisme bit-à-bit serial
-vs backend parallèle pour {1, 2, 4, 8} threads, et le succès
-d'index minimum en mode parallel-attempts.
+These CLI examples use the normal application settings; use the collector for the controlled timing protocol. The validated build and supported optional targets are described in [BUILD.md](docs/BUILD.md).
 
-## Usage
+## Repository layout
 
-### Solveur série
+| Path | Purpose |
+|---|---|
+| `apps/`, `include/`, `src/` | Existing C++ applications, interfaces and implementations |
+| `tests/`, `samples/` | CTest suites and supplied input grids |
+| `bench/` | CPU collector, plotter, requirements and raw evidence |
+| `docs/` | Current design/results and historical technical material |
+| `results/`, `rapport/` | Historical measurements, report sources and submitted slides |
+| `ue5_plugin/` | Optional editor integration, not exercised here |
+| `third_party/` | Image-writing dependency with its embedded license |
 
-```bash
-./build/wfc_serial samples/binary_5x5.txt --rows 64 --cols 64 -N 2 \
-    --seed 42 --out result.txt --png result.png --scale 6
-```
+Exact duplicate artifacts were consolidated with a [path map](docs/artifact-map.json); report image references now use the retained copies. Historical report and illustration content is retained without treating it as newly reproduced evidence.
 
-### Solveur OpenMP
+## Next steps
 
-```bash
-OMP_NUM_THREADS=8 ./build/wfc_omp samples/binary_5x5.txt --rows 128 --cols 128 \
-    -N 2 --seed 42 --threads 8
-```
+Profile task and barrier costs under controlled active/passive waiting, then extend the seed and sample set before drawing general scaling conclusions. Improve CLI failure signalling in a separate behavior change. Validate Kokkos on a configured target and exercise the Unreal editor integration before adding either to current claims.
 
-### Solveur Kokkos
+## References
 
-```bash
-./build/wfc_kokkos samples/binary_5x5.txt --rows 128 --cols 128 -N 2 \
-    --seed 42 --kokkos-num-threads=8
-```
+- [Maxim Gumin's WaveFunctionCollapse](https://github.com/mxgmn/WaveFunctionCollapse), the original overlapping-model description and implementation.
+- [Kokkos programming model](https://kokkos.org/kokkos-core-wiki/ProgrammingGuide/ProgrammingModel.html), background for the optional backend.
+- [C++ draft: vector<bool>](https://eel.is/c++draft/vector.bool), relevant to the corrected storage discussion in the design notes.
+- [Coursework specification](README.pdf), [report source](rapport/main.tex) and [submitted slides](rapport/slides.pdf), retained project material.
 
-### Options communes (`--help` pour la liste complète)
+## License
 
-| Option            | Description                                  |
-|-------------------|----------------------------------------------|
-| `--rows`, `--cols` | dimensions de la grille de sortie            |
-| `-N`              | taille de tuile (défaut 2)                   |
-| `--seed`          | seed RNG (output déterministe pour un seed donné) |
-| `--attempts`      | nombre maximal de retentatives sur contradiction |
-| `--parallel-attempts K` | lance K attempts en parallèle, garde le succès d'index minimum (défaut 1) |
-| `--symmetries S`  | expansion D4 du tile set : 1, 2, 4, 8 (défaut 1, désactivé) |
-| `--backtrack`     | utilise le backtracking au lieu du restart sur contradiction (défaut désactivé) |
-| `--threads`       | threads (OMP)                                |
-| `--scale`         | facteur de zoom du rendu PPM/PNG             |
-| `--out FILE.txt`  | écriture de la grille texte                  |
-| `--ppm FILE.ppm`  | rendu PPM (P6)                               |
-| `--png FILE.png`  | rendu PNG via `stb_image_write.h`            |
-
-### Options optionnelles, zéro impact sur la perf si désactivées
-
-`--parallel-attempts` paie sur les workloads serrés où chaque attempt a
-un risque d'échec (ex. terrain N=3) : 2.14× wallclock observé à K=8 vs
-K=1 sur terrain N=3 24×24. Inutile sur les workloads qui réussissent
-toujours du premier coup : K attempts = K× le travail pour le même
-résultat.
-
-`--symmetries S` étend le catalogue de tuiles avec les variantes D4
-(rotations 90°/180°/270° et leurs réflexions horizontales). Les
-variantes héritent de la fréquence de leur source. À S=1 (défaut), le
-chemin est strictement identique au comportement legacy : aucune
-génération de variant, aucun coût additionnel. À S>1, le seul coût est
-une étape one-shot lors de l'extraction (quelques µs même pour gros
-samples). Effet sur le solver : `L` croît jusqu'à 8× → bitsets passent
-parfois à 2 mots → solver ~1.5× plus lent. Bénéfice : motifs
-asymétriques (chemins, branchages, escaliers) appliqués uniformément
-dans toutes les orientations.
-
-`--backtrack` remplace la stratégie restart-on-contradiction par un
-parcours arborescent : chaque collapse pousse une frame
-(cellule, choix restants, delta des modifications) sur une pile ; en
-cas de contradiction la frame du sommet est dépilée et le choix
-suivant est essayé. Utile sur les samples très contraints où retry
-échoue systématiquement (ex. terrain N=3 32×32 : retry échoue en 30
-attempts, backtrack résout en ~120 ms). Default désactivé : le chemin
-hot reste inchangé.
-
-Optimisations livrées :
-
-- **Delta-encoded snapshot** : chaque frame ne stocke que les cellules
-  effectivement modifiées par la propagation, pas le wave complet.
-  Mémoire : `~50 cellules × words_per_cell × 16 octets` par frame
-  (vs `rows·cols·words_per_cell × 8 octets` pour un snapshot plein),
-  soit ~80× moins sur 64×64 binaire. Permet le backtrack sur grilles
-  larges sans saturer la RAM.
-- **Composition avec parallel-attempts** : `--parallel-attempts K
-  --backtrack` lance K recherches backtrack indépendantes en parallèle
-  (chacune avec son propre seed → ordre de tie-break différent → arbre
-  d'exploration différent). Le succès d'index minimum gagne. Utile
-  quand un single backtrack risque d'échouer même sur l'arbre complet
-  (sample sur-contraint mais avec quelques seeds chanceux).
-
-## Format des échantillons
-
-Texte simple, espaces ou retours à la ligne entre valeurs, lignes commençant
-par `#` ignorées. Toutes les lignes doivent avoir la même largeur.
-
-```
-# 5x5 binary sample
-1 0 1 1 1
-1 0 1 1 1
-0 0 1 1 1
-0 1 1 1 1
-0 0 0 0 0
-```
-
-Échantillons fournis : `samples/binary_5x5.txt` (exemple du sujet),
-`binary_stripes`, `binary_checker`, `binary_dots`, `multivalue_terrain`,
-`multivalue_maze`, `multivalue_smooth` (3 valeurs, transitions douces).
-
-## Benchmarks
-
-```bash
-./scripts/run_benchmark.sh           # build/wfc_benchmark + sweep
-python3 scripts/plot_results.py results/benchmark.csv
-                                     # produit docs/figures/{speedup,efficiency,backends}.png
-```
-
-Le sweep par défaut couvre 32×32, 64×64, 128×128 × {1, 2, 4, 8} threads × {serial, omp, kokkos}.
-
-### Sur Romeo (HPC, AMD EPYC 9654 192c, NVIDIA GH200)
-
-```bash
-sbatch scripts/romeo_full_bench.slurm   # CPU full sweep ~1h
-sbatch scripts/build_kokkos_gpu_romeo.slurm  # GPU build + tests ~15 min
-sbatch scripts/romeo_gpu_bench.slurm    # GPU bench ~10 min
-```
-
-Mesures combinées (jobs 543692 + 544061 + 544356) sur `binary_5x5` :
-
-| Taille  | serial  | omp peak       | omp threads peak | régression 192t |
-|---------|---------|----------------|------------------|-----------------|
-| 64×64   | 0.25 s  | 0.094 s (2.6×) | 8 threads        | 3.93 s (15× plus lent) |
-| 128×128 | 3.97 s  | 0.69 s (5.7×)  | 8 (avec optim)   | 27.3 s (6.9× plus lent) |
-| 256×256 | 61.4 s  | 7.5 s (8.2×)   | 16 threads       | 319 s (5× plus lent) |
-
-L'optim "frontier threshold"
-([WFCSolverOMP.cpp:188](src/solvers/WFCSolverOMP.cpp#L188)) bascule en
-série pour les niveaux BFS courts. Gain mesuré : +10% à 8 threads,
-+25% à 64 threads, +29% à 192 threads.
-
-GPU GH200 testé sur `binary_5x5` 128×128 : 5.4 s, 8× plus lent que
-OMP CPU 8 threads. Les H↔D copies par propagate (~16 GB pour 256×256)
-dominent le coût. Voir [docs/benchmark.md](docs/benchmark.md) pour
-l'analyse complète.
-
-## Rapport et présentation
-
-```bash
-cd rapport
-xelatex main.tex && biber main && xelatex main.tex && xelatex main.tex
-xelatex slides.tex && xelatex slides.tex
-```
-
-PDF générés : `rapport/main.pdf` (rapport, 99 pages) et `rapport/slides.pdf` (slides, 25 pages).
-
-## Layout
-
-```
-include/wfc/   headers publics (Grid, Tile, Bitset, TileSet, OverlapRules,
-               Wave, WFCSolver, GridIO + solvers/)
-src/           implémentations
-apps/          wfc_serial, wfc_omp, wfc_kokkos, benchmark, wfc_dungeon
-tests/         15 suites (test_bitset, test_overlap, test_solver_omp, ...)
-samples/       grilles d'entrée
-scripts/       run_benchmark.sh, plot_results.py, slurm Romeo, build_kokkos.sh
-results/       CSV des benchmarks
-docs/          documentation technique (architecture, build, tests, perf)
-rapport/       rapport LaTeX (main.tex, slides.tex) + figures + schemas
-third_party/   stb_image_write.h
-ue5_plugin/    plugin Unreal Engine 5.7 (WFCDungeon)
-```
-
-## Licence
-
-Projet académique. Code original sous MIT, `stb_image_write.h` sous Public
-Domain (cf. en-tête du fichier).
+No license grant has been established for the original project. [LICENSE](LICENSE) records the authors' reserved rights and preserves third-party terms. `stb_image_write.h` retains its embedded license. Contributor authority must be confirmed before a new project license is adopted.

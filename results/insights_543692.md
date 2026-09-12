@@ -1,4 +1,6 @@
-# Benchmark insights — 224 rows from results/full_543692.csv
+# Benchmark insights: 224 rows from results/full_543692.csv
+
+> Historical analysis: these tables were retained from earlier cluster runs and were not recomputed during the overhaul. The current measured protocol and results are in [docs/results.md](../docs/results.md).
 
 ## Optimal thread count per problem
 
@@ -6,9 +8,9 @@ For each (label, size), thread count where OMP achieves its best time.
 
 | Label | Size | Best threads | Speedup | Efficiency |
 |---|---|---|---|---|
-| binary_L11 | 32x32 | 4 | 1.16× | 29.0% |
-| binary_L11 | 64x64 | 8 | 2.64× | 33.0% |
-| binary_L11 | 128x128 | 8 | 5.27× | 65.9% |
+| binary_L11 | 32x32 | 4 | 1.16Ã— | 29.0% |
+| binary_L11 | 64x64 | 8 | 2.64Ã— | 33.0% |
+| binary_L11 | 128x128 | 8 | 5.27Ã— | 65.9% |
 
 ## Strong-scaling efficiency knee
 
@@ -26,21 +28,21 @@ Configurations where adding threads makes the code slower than serial. Diagnosti
 
 | Label | Size | Threads | Serial (s) | OMP (s) | Slowdown |
 |---|---|---|---|---|---|
-| binary_L11 | 32x32 | 8 | 0.02 | 0.02 | 1.10× slower |
-| binary_L11 | 32x32 | 16 | 0.02 | 0.05 | 2.99× slower |
-| binary_L11 | 64x64 | 16 | 0.25 | 0.38 | 1.54× slower |
-| binary_L11 | 32x32 | 32 | 0.02 | 0.08 | 5.41× slower |
-| binary_L11 | 64x64 | 32 | 0.25 | 0.65 | 2.62× slower |
-| binary_L11 | 128x128 | 32 | 3.97 | 4.53 | 1.14× slower |
-| binary_L11 | 32x32 | 64 | 0.02 | 0.17 | 11.30× slower |
-| binary_L11 | 64x64 | 64 | 0.25 | 1.51 | 6.08× slower |
-| binary_L11 | 128x128 | 64 | 3.97 | 13.16 | 3.32× slower |
-| binary_L11 | 32x32 | 96 | 0.02 | 0.24 | 16.01× slower |
-| binary_L11 | 64x64 | 96 | 0.25 | 1.57 | 6.31× slower |
-| binary_L11 | 128x128 | 96 | 3.97 | 16.50 | 4.16× slower |
-| binary_L11 | 32x32 | 192 | 0.02 | 0.64 | 42.62× slower |
-| binary_L11 | 64x64 | 192 | 0.25 | 3.93 | 15.83× slower |
-| binary_L11 | 128x128 | 192 | 3.97 | 35.30 | 8.90× slower |
+| binary_L11 | 32x32 | 8 | 0.02 | 0.02 | 1.10Ã— slower |
+| binary_L11 | 32x32 | 16 | 0.02 | 0.05 | 2.99Ã— slower |
+| binary_L11 | 64x64 | 16 | 0.25 | 0.38 | 1.54Ã— slower |
+| binary_L11 | 32x32 | 32 | 0.02 | 0.08 | 5.41Ã— slower |
+| binary_L11 | 64x64 | 32 | 0.25 | 0.65 | 2.62Ã— slower |
+| binary_L11 | 128x128 | 32 | 3.97 | 4.53 | 1.14Ã— slower |
+| binary_L11 | 32x32 | 64 | 0.02 | 0.17 | 11.30Ã— slower |
+| binary_L11 | 64x64 | 64 | 0.25 | 1.51 | 6.08Ã— slower |
+| binary_L11 | 128x128 | 64 | 3.97 | 13.16 | 3.32Ã— slower |
+| binary_L11 | 32x32 | 96 | 0.02 | 0.24 | 16.01Ã— slower |
+| binary_L11 | 64x64 | 96 | 0.25 | 1.57 | 6.31Ã— slower |
+| binary_L11 | 128x128 | 96 | 3.97 | 16.50 | 4.16Ã— slower |
+| binary_L11 | 32x32 | 192 | 0.02 | 0.64 | 42.62Ã— slower |
+| binary_L11 | 64x64 | 192 | 0.25 | 3.93 | 15.83Ã— slower |
+| binary_L11 | 128x128 | 192 | 3.97 | 35.30 | 8.90Ã— slower |
 
 ## Workload sensitivity
 
@@ -48,15 +50,15 @@ Does L (number of unique tiles) affect parallel efficiency?
 
 | Size | binary_L11 |
 |---|---|
-| 32x32 | 1.16× |
-| 64x64 | 2.64× |
-| 128x128 | 5.27× |
-| 256x256 | — |
+| 32x32 | 1.16Ã— |
+| 64x64 | 2.64Ã— |
+| 128x128 | 5.27Ã— |
+| 256x256 | not recorded |
 
 ## Kokkos thread sensitivity
 
 Kokkos solve times across 'thread' counts. The Kokkos backend
-doesn't take a threads argument from `wfc_benchmark` — it uses
+doesn't take a threads argument from `wfc_benchmark`; it uses
 the default Kokkos host execution space concurrency. So all
 'thread' columns should give the same result; if they do, this
 documents that the kokkos sweep is effectively a single-config

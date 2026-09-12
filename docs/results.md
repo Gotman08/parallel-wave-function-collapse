@@ -1,206 +1,48 @@
-# Galerie d'images générées
+# Recorded CPU results
 
-Échantillons d'entrée et grilles générées par le solveur sur la machine
-locale (i9-10900K, MinGW UCRT g++ 16.1, USE_LTO=ON). Images produites
-par le binaire `wfc_serial`, rendu PNG via `stb_image_write.h`. La
-palette 16 couleurs est définie dans
-[GridIO.cpp:67-87](../src/GridIO.cpp#L67-L87).
+The 2026-09-12 run compares the existing serial and OpenMP solvers on `samples/binary_5x5.txt` with tile size 2. It records sixty solves: one warm-up and five measured solves for each of ten configurations. All sixty report success. [Runs](../bench/results/2026-09-12/runs.csv), [summary](../bench/results/2026-09-12/summary.csv), [commands](../bench/results/2026-09-12/commands.json) and [environment](../bench/results/2026-09-12/environment.json) are committed.
 
-Pour reproduire :
+## Protocol
 
-```powershell
-.\build\wfc_serial.exe samples/<sample>.txt --rows N --cols N -N 2 \
-    --seed S --scale K --png out.png
-```
+Each configuration starts a separate `wfc_benchmark` process. Its six repetitions use seeds 41 through 46. Seed 41 is the warm-up and is excluded; seeds 42 through 46 are shared by all backends and output sizes. The maximum retry count is five. Symmetry expansion, backtracking and parallel attempts retain the application's default settings.
 
-## Légende des couleurs
+The primary metric is the existing `SolverStats::seconds_solve`, exposed as `solve_s`. It accumulates observation/propagation work across attempts. It excludes initial rule construction, wave allocation and final grid export. `rules_s`, `total_s` and whole-process elapsed time are also preserved, with their original boundaries. The two timed workloads are 64 × 64 and 128 × 128; the backend order is serial, OpenMP 1, 2, 4, 8 threads for each size.
 
-| Valeur | Couleur          | Hex      |
-|--------|------------------|----------|
-| 0      | Noir             | `#000000` |
-| 1      | Blanc            | `#ffffff` |
-| 2      | Bleu eau         | `#1f77b4` |
-| 3      | Orange sable     | `#ff7f0e` |
-| 4      | Vert herbe       | `#2ca02c` |
-| 5      | Violet roche     | `#9467bd` |
-| 6      | Rouge porte      | `#d62728` |
-| 7      | Marron           | `#8c564b` |
-| 8+     | tons clairs      | (cf. palette) |
+The machine is an Intel Core i9-13900H running Ubuntu 24.04.4 under WSL2 kernel 6.6.87.2. The guest reports twenty logical CPUs and 16149672 kB of memory. The collector chooses the first logical CPU for each distinct core reported by the guest: 0, 2, 4, 6, 8, 10, 12, 14. Each configuration uses the first requested number of those CPUs through `taskset`. The guest topology is recorded; it is not used to infer the host's physical core design.
 
-## Échantillons binaires
+The build uses GCC 13.3.0, C++17, Release `-O3 -march=native`, OpenMP enabled, Kokkos and LTO disabled. OpenMP uses `OMP_DYNAMIC=FALSE`, `OMP_PROC_BIND=close`, `OMP_PLACES=cores`, `OMP_WAIT_POLICY=PASSIVE` and the requested thread count. Full tool versions, cache settings, source/binary/sample hashes and exact affinity lists are in the environment and command records. [Compiler flags](../bench/results/2026-09-12/compiler-flags.txt).
 
-### `binary_5x5`, l'exemple du sujet
+## Statistics
 
-Sample 5×5 du `README.pdf`. Donne 11 tuiles uniques avec N=2.
+Times are medians of the five measured seeds. Quartiles use `statistics.quantiles(..., method="inclusive")`; the IQR is Q3 minus Q1. Speedup is the serial median divided by the corresponding backend median, not a ratio of individual paired trials. The seed set is fixed, but changing the seed also changes the generated problem; the IQR therefore combines workload and timing variation.
 
-| Input (5×5) | Output 64×64 N=2 seed=42 |
-|---|---|
-| ![input](figures/results/inputs/binary_5x5_input.png) | ![output](figures/results/binary_5x5_64x64_N2_seed42.png) |
+| Grid | Backend | Median, s | Q1, s | Q3, s | Serial/backend |
+|---|---|---:|---:|---:|---:|
+| 64 × 64 | Serial | 0.212073 | 0.211757 | 0.214570 | 1.000 |
+| 64 × 64 | OpenMP 1 | 0.219687 | 0.218470 | 0.220033 | 0.965 |
+| 64 × 64 | OpenMP 2 | 0.569424 | 0.565393 | 0.571919 | 0.372 |
+| 64 × 64 | OpenMP 4 | 0.947773 | 0.913040 | 0.977212 | 0.224 |
+| 64 × 64 | OpenMP 8 | 1.675720 | 1.658630 | 1.688390 | 0.127 |
+| 128 × 128 | Serial | 3.347680 | 3.339830 | 3.357750 | 1.000 |
+| 128 × 128 | OpenMP 1 | 3.464460 | 3.444750 | 3.485200 | 0.966 |
+| 128 × 128 | OpenMP 2 | 4.121690 | 3.970550 | 4.263480 | 0.812 |
+| 128 × 128 | OpenMP 4 | 5.300080 | 5.186700 | 5.462660 | 0.632 |
+| 128 × 128 | OpenMP 8 | 8.536540 | 8.425520 | 8.620620 | 0.392 |
 
-Le solveur reproduit les motifs locaux du sample (diagonales 0/1, zones
-contiguës de 1, transitions). Pas de contradiction sur 5 attempts.
+No OpenMP configuration improved on serial in this experiment. This is a result for the recorded sample, topology and passive-wait policy. It does not establish a universal scaling bound or isolate the cause of the slowdown. The configuration order was fixed rather than randomized; frequency and thermal drift were not controlled. Peak memory and energy were not measured.
 
-### `binary_stripes`, pattern très contraint
+## Reproduce and inspect
 
-Bandes verticales 0/1 alternées. Avec N=2, 2 tuiles uniques.
+Build according to the root README, then run `BUILD_DIR=build PYTHON=python3 bash bench/run.sh`. Local output defaults to the ignored `bench/results/local/` directory. To preserve a separate snapshot, supply an output directory as the first argument. The collector requires Linux affinity support and eight distinct cores visible through guest topology.
 
-| Input (8×8) | Output 48×48 N=2 seed=1 |
-|---|---|
-| ![input](figures/results/inputs/binary_stripes_input.png) | ![output](figures/results/binary_stripes_48x48_N2_seed1.png) |
+Install `bench/requirements.txt` into a virtual environment and run `.venv/bin/python bench/plot.py` to regenerate both committed SVG theme variants from the recorded summary. Use `--input bench/results/local/summary.csv` to plot a new run. The figure reports solve-time medians and IQR bars; the speedup panel does not imply confidence intervals.
 
-Le solveur converge vers le même motif (à un décalage de phase près).
-Cas dégénéré utilisé par `test_overlap` pour vérifier l'identité des
-règles.
+The separate [contradiction example](../bench/results/2026-09-12/contradiction.json) records a 3 × 3 checkerboard request that reports failure after one attempt but exits with code 0. This demonstrates why callers must inspect solver status.
 
-### `binary_checker`, damier
+The existing CPU build and thirteen CTest suites passed before collection, and their [log](../bench/results/2026-09-12/build-tests.log) is retained without rerunning them. The optional dungeon target emits one source-comment warning. The original application sources and build configuration were not changed.
 
-Damier 0/1 avec N=2 → 2 tuiles uniques. Comme stripes mais avec
-contraintes croisées.
+## Unmeasured and historical material
 
-| Input (8×8) | Output 48×48 N=2 seed=2 |
-|---|---|
-| ![input](figures/results/inputs/binary_checker_input.png) | ![output](figures/results/binary_checker_48x48_N2_seed2.png) |
+Kokkos was disabled and no Kokkos package was configured in the validated build; no CPU Kokkos or GPU result is reported. The Unreal Engine editor, sanitizer configurations, LaTeX compilation and historical figure pipelines were not exercised. Hosted CI is configured but has not run on this unpublished branch.
 
-### `binary_dots`, points isolés
-
-Sample où des `1` isolés sont entourés de `0`. Plus de tuiles uniques
-(7) → grille plus variée.
-
-| Input (10×10) | Output 64×64 N=2 seed=3 |
-|---|---|
-| ![input](figures/results/inputs/binary_dots_input.png) | ![output](figures/results/binary_dots_64x64_N2_seed3.png) |
-
-## Échantillons multi-valeurs
-
-### `multivalue_terrain`, eau / sable / herbe / roche
-
-Quatre valeurs (0=eau, 3=sable, 4=herbe, 5=roche) en couches concentriques.
-33 tuiles uniques avec N=2. Sample qui montre que le solveur fonctionne
-indépendamment du nombre de valeurs.
-
-| Input (14×10) | Output 64×64 N=2 seed=7 | Output 128×128 N=2 seed=11 |
-|---|---|---|
-| ![input](figures/results/inputs/multivalue_terrain_input.png) | ![64](figures/results/multivalue_terrain_64x64_N2_seed7.png) | ![128](figures/results/multivalue_terrain_128x128_N2_seed11.png) |
-
-À 128×128, plusieurs îles indépendantes apparaissent : la zone est plus
-grande que dans l'échantillon, et le solveur reproduit uniquement les
-transitions locales (eau→sable→herbe→roche), il ne sait pas qu'il doit
-faire une seule île.
-
-### `multivalue_maze`, labyrinthe avec portes
-
-Trois valeurs (0=sol, 1=mur, 6=porte). Sample 11×12 issu du fichier
-`samples/multivalue_maze.txt`. Avec N=3 ce sample est connu pour
-échouer fréquemment (utilisé comme test de failure path dans
-`test_edge_cases`).
-
-| Input (11×12) | Output 48×48 N=2 seed=13 |
-|---|---|
-| ![input](figures/results/inputs/multivalue_maze_input.png) | ![output](figures/results/multivalue_maze_48x48_N2_seed13.png) |
-
-### `multivalue_smooth`, transitions douces
-
-Sample avec gradients lisses entre valeurs.
-
-| Input (12×12) | Output 64×64 N=2 seed=17 | Output 64×64 N=3 seed=19 |
-|---|---|---|
-| ![input](figures/results/inputs/multivalue_smooth_input.png) | ![N=2](figures/results/multivalue_smooth_64x64_N2_seed17.png) | ![N=3](figures/results/multivalue_smooth_64x64_N3_seed19.png) |
-
-Augmenter N (2 → 3) capture des motifs locaux plus précis : la sortie
-reproduit mieux les courbes de transition, au prix d'un tile set plus
-gros et d'un solveur plus lent.
-
-## Galerie style WFC paper (skyline / plant / rooms)
-
-Échantillons inspirés des images les plus classiques du papier WFC
-original (Maxim Gumin) : un skyline urbain, une plante avec fleurs,
-et un dungeon binaire à pièces rectangulaires. Tous tournés à N=3
-pour capturer les motifs locaux fins (fenêtres, branches, coins de
-pièces) ; le taux de contradiction de N=3 est absorbé par
-`--parallel-attempts 8` qui ramène le temps réel à celui d'un seul
-attempt.
-
-### `skyline`, ville nocturne
-
-4 valeurs : ciel noir, immeubles gris, fenêtres jaunes, fondations
-brunes. WFC apprend les motifs de fenêtre dans la maçonnerie, les
-silhouettes verticales et la séparation ciel/sol.
-
-| Input (16×14) | Seed 1 | Seed 7 | Seed 42 |
-|---|---|---|---|
-| ![input](figures/results/inputs/skyline_input.png) | ![1](figures/results/gallery/skyline_seed1.png) | ![7](figures/results/gallery/skyline_seed7.png) | ![42](figures/results/gallery/skyline_seed42.png) |
-
-### `plant`, jardin de fleurs
-
-4 valeurs : ciel bleu pâle, tiges vertes, fleurs jaunes, sol brun.
-Les plantes croissent depuis le sol avec branches et fleurs aux
-extrémités. Plusieurs spécimens dans l'échantillon → variété dans la
-sortie.
-
-| Input (16×15) | Seed 1 | Seed 7 | Seed 42 |
-|---|---|---|---|
-| ![input](figures/results/inputs/plant_input.png) | ![1](figures/results/gallery/plant_seed1.png) | ![7](figures/results/gallery/plant_seed7.png) | ![42](figures/results/gallery/plant_seed42.png) |
-
-### `rooms`, dungeon binaire
-
-2 valeurs : noir (mur), blanc (pièce). Sample contient des pièces
-rectangulaires reliées par couloirs étroits. Sortie : layout de
-dungeon plausible avec pièces de taille variable.
-
-| Input (12×12) | Seed 1 | Seed 7 | Seed 42 |
-|---|---|---|---|
-| ![input](figures/results/inputs/rooms_input.png) | ![1](figures/results/gallery/rooms_seed1.png) | ![7](figures/results/gallery/rooms_seed7.png) | ![42](figures/results/gallery/rooms_seed42.png) |
-
-Le script `scripts/render_gallery.sh` produit les 9 sorties + les 3
-thumbnails d'entrée :
-
-```bash
-./scripts/render_gallery.sh build
-```
-
-## Effet du déterminisme
-
-Pour un même seed, tous les backends produisent la même grille au bit
-près. Vérifié par les tests `test_solver_omp` et `test_solver_kokkos`
-qui comparent par hash SHA-256 :
-
-```bash
-.\build\wfc_serial.exe samples/binary_5x5.txt --rows 32 --cols 32 -N 2 \
-    --seed 42 --out out_serial.txt
-.\build\wfc_omp.exe samples/binary_5x5.txt --rows 32 --cols 32 -N 2 \
-    --seed 42 --threads 8 --out out_omp.txt
-diff out_serial.txt out_omp.txt   # identique
-```
-
-C'est garanti par le `cell_jitter` SplitMix64 déterministe et la
-réduction min-entropie en ordre de chunk fixe, voir [CHOICES.md](CHOICES.md).
-
-## Résolution de l'exemple du sujet
-
-Le sample `binary_5x5` est l'exemple littéral du `README.pdf`.
-Reproduction du diagramme ASCII du sujet (figure 1 du README, page 2) :
-
-```
-1 0 1 1 1
-1 0 1 1 1
-0 0 1 1 1
-0 1 1 1 1
-0 0 0 0 0
-```
-
-Le solveur extrait correctement les 7 tuiles distinctes mentionnées
-(en supplément des 4 tuiles supplémentaires créées par le wrap toroïdal,
-soit 11 au total, voir `test_tileset.cpp` pour la vérification).
-La grille 64×64 ci-dessus en est une instance solvée déterministe.
-
-## Reproduire toute la galerie
-
-```powershell
-$env:Path = "C:\msys64\ucrt64\bin;$env:Path"
-cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DUSE_OMP=ON -DUSE_LTO=ON
-cmake --build build -j
-python scripts/render_input.py samples/*.txt
-# puis pour chaque output :
-.\build\wfc_serial.exe samples/binary_5x5.txt --rows 64 --cols 64 -N 2 \
-    --seed 42 --scale 8 --png docs/figures/results/binary_5x5_64x64_N2_seed42.png
-```
+Earlier CPU/GPU tables, gallery images and report illustrations remain as historical material. The [old gallery](gallery.md) and French report sources do not constitute evidence of this run. Exact duplicates were consolidated with the [artifact path map](artifact-map.json); image references in the report now use the retained copies.

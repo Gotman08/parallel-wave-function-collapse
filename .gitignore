@@ -67,6 +67,43 @@ desktop.ini
 
 # Logs
 *.log
+!bench/results/**/*.log
+
+# Local reruns keep the reviewed measurement snapshot unchanged.
+bench/results/local/
+
+# LaTeX intermediates; keep source documents and submitted PDFs.
+rapport/**/*.aux
+rapport/**/*.out
+rapport/**/*.toc
+rapport/**/*.nav
+rapport/**/*.snm
+rapport/**/*.vrb
+rapport/**/*.fls
+rapport/**/*.fdb_latexmk
+rapport/**/*.synctex.gz
+rapport/*.aux
+rapport/*.out
+rapport/*.toc
+rapport/*.nav
+rapport/*.snm
+rapport/*.vrb
+
+# Duplicate historical outputs now use the canonical paths in docs/artifact-map.json.
+rapport/results/figures/amdahl/
+rapport/results/figures/optim/
+rapport/results/figures/results/
+rapport/results/figures/scaling/
+rapport/results/figures/ue5/
+docs/figures/romeo/amdahl_*.png
+docs/figures/romeo_full/efficiency_binary_L11.png
+docs/figures/romeo_full/speedup_band_binary_L11.png
+docs/figures/romeo_full/speedup_binary_L11.png
+docs/figures/sample_stripes.png
+docs/figures/sample_terrain.png
+results/amdahl_all.json
+results/benchmark_after_pass1.csv
+results/romeo/romeo_smoke.csv
 
 # Plan files (private to local Claude session)
 .claude/

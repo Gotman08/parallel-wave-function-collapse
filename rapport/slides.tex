@@ -103,7 +103,7 @@
 
 {\itshape\color{black}\large Romain Despoullains, Nicolas Marano}
 \hfill
-\raisebox{-0.8cm}{\includegraphics[width=3.2cm]{results/figures/results/gallery/skyline_seed42.png}}
+\raisebox{-0.8cm}{\includegraphics[width=3.2cm]{../docs/figures/results/gallery/skyline_seed42.png}}
 
 \vfill
 \end{frame}
@@ -465,7 +465,7 @@ Hoist \texttt{wave.at(c)} & 0\% var \\
 \begin{frame}{Bilan des optimisations en gain temps}
 \begin{columns}[T]
 \begin{column}{0.50\textwidth}
-\includegraphics[width=\textwidth]{results/figures/optim/frontier_threshold_compare.png}\\
+\includegraphics[width=\textwidth]{../docs/figures/optim/frontier_threshold_compare.png}\\
 {\scriptsize A/B frontier-threshold sur Romeo (job SLURM 544356)}
 \end{column}
 \begin{column}{0.46\textwidth}
@@ -628,7 +628,7 @@ void operator()(const int idx) const {
 \begin{frame}{Démo Unreal Engine 5}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
-\includegraphics[width=\textwidth]{results/figures/ue5/ue5_dungeon_03.png}
+\includegraphics[width=\textwidth]{../docs/figures/ue5_dungeon_03.png}
 \end{column}
 \begin{column}{0.42\textwidth}
 \textbf{Pipeline \texttt{wfc\_dungeon} $\to$ UE 5.7}
@@ -761,7 +761,7 @@ $\to$ identique
 \begin{frame}{Speedup binary\_L11 sur Romeo}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
-\includegraphics[width=\textwidth]{results/figures/scaling/speedup_binary_L11.png}
+\includegraphics[width=\textwidth]{../docs/figures/scaling/speedup_binary_L11.png}
 \end{column}
 \begin{column}{0.42\textwidth}
 \begin{block}{Strong scaling Romeo}
@@ -789,11 +789,11 @@ $\to$ identique
 \begin{frame}{Heatmap et fit Amdahl}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\includegraphics[width=\textwidth]{results/figures/scaling/heatmap_binary_L11.png}\\[2pt]
+\includegraphics[width=\textwidth]{../docs/figures/scaling/heatmap_binary_L11.png}\\[2pt]
 {\scriptsize Sweet spot diagonal : taille optimale suit le thread count.}
 \end{column}
 \begin{column}{0.48\textwidth}
-\includegraphics[width=\textwidth]{results/figures/amdahl/amdahl_binary_L11_256.png}\\[2pt]
+\includegraphics[width=\textwidth]{../docs/figures/amdahl/amdahl_binary_L11_256.png}\\[2pt]
 {\scriptsize Fit Amdahl 256 : $f = 0.944$, ceiling $17.8\times$, peak $8.23\times$ (46\% du ceiling).}
 \end{column}
 \end{columns}
@@ -806,11 +806,11 @@ $\to$ identique
 \begin{frame}{Comparaison serial / OMP / Kokkos}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\includegraphics[width=\textwidth]{results/figures/scaling/backends_binary_L11_128.png}\\[2pt]
+\includegraphics[width=\textwidth]{../docs/figures/scaling/backends_binary_L11_128.png}\\[2pt]
 {\scriptsize binary\_L11 128$\times$128, échelle log.}
 \end{column}
 \begin{column}{0.48\textwidth}
-\includegraphics[width=\textwidth]{results/figures/scaling/backends_binary_L11_256.png}\\[2pt]
+\includegraphics[width=\textwidth]{../docs/figures/scaling/backends_binary_L11_256.png}\\[2pt]
 {\scriptsize binary\_L11 256$\times$256, échelle log.}
 \end{column}
 \end{columns}
@@ -829,17 +829,17 @@ $\to$ identique
 \begin{column}{0.5\textwidth}
 \centering
 {\scriptsize \textbf{binary\_5x5} (5$\times$5, $N=2$, 11 tuiles)}\\[2pt]
-\includegraphics[height=1.7cm]{results/figures/results/inputs/binary_5x5_input.png}
+\includegraphics[height=1.7cm]{../docs/figures/results/inputs/binary_5x5_input.png}
 \hspace{0.3cm}$\to$\hspace{0.3cm}
-\includegraphics[height=1.7cm]{results/figures/results/binary_5x5_64x64_N2_seed42.png}\\[1pt]
+\includegraphics[height=1.7cm]{../docs/figures/results/binary_5x5_64x64_N2_seed42.png}\\[1pt]
 {\tiny input \hspace{1.2cm} output 64$\times$64}
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
 {\scriptsize \textbf{terrain} (14$\times$10, $N=2$, 33 tuiles)}\\[2pt]
-\includegraphics[height=1.7cm]{results/figures/results/inputs/multivalue_terrain_input.png}
+\includegraphics[height=1.7cm]{../docs/figures/results/inputs/multivalue_terrain_input.png}
 \hspace{0.3cm}$\to$\hspace{0.3cm}
-\includegraphics[height=1.7cm]{results/figures/results/multivalue_terrain_128x128_N2_seed11.png}\\[1pt]
+\includegraphics[height=1.7cm]{../docs/figures/results/multivalue_terrain_128x128_N2_seed11.png}\\[1pt]
 {\tiny input \hspace{1.2cm} output 128$\times$128}
 \end{column}
 \end{columns}
@@ -850,17 +850,17 @@ $\to$ identique
 \begin{column}{0.5\textwidth}
 \centering
 {\scriptsize \textbf{skyline} (16$\times$14, $N=3$, 79 tuiles)}\\[2pt]
-\includegraphics[height=1.7cm]{results/figures/results/inputs/skyline_input.png}
+\includegraphics[height=1.7cm]{../docs/figures/results/inputs/skyline_input.png}
 \hspace{0.3cm}$\to$\hspace{0.3cm}
-\includegraphics[height=1.7cm]{results/figures/results/gallery/skyline_seed42.png}\\[1pt]
+\includegraphics[height=1.7cm]{../docs/figures/results/gallery/skyline_seed42.png}\\[1pt]
 {\tiny input \hspace{1.2cm} output (seed=42)}
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
 {\scriptsize \textbf{plant} (16$\times$15, $N=3$, 94 tuiles)}\\[2pt]
-\includegraphics[height=1.7cm]{results/figures/results/inputs/plant_input.png}
+\includegraphics[height=1.7cm]{../docs/figures/results/inputs/plant_input.png}
 \hspace{0.3cm}$\to$\hspace{0.3cm}
-\includegraphics[height=1.7cm]{results/figures/results/gallery/plant_seed42.png}\\[1pt]
+\includegraphics[height=1.7cm]{../docs/figures/results/gallery/plant_seed42.png}\\[1pt]
 {\tiny input \hspace{1.2cm} output (seed=42)}
 \end{column}
 \end{columns}

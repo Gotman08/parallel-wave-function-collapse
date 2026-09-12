@@ -1,4 +1,6 @@
-# Benchmark insights — 371 rows from results/combined_543692_544061.csv
+# Benchmark insights: 371 rows from results/combined_543692_544061.csv
+
+> Historical analysis: these tables were retained from earlier cluster runs and were not recomputed during the overhaul. The current measured protocol and results are in [docs/results.md](../docs/results.md).
 
 ## Optimal thread count per problem
 
@@ -6,16 +8,16 @@ For each (label, size), thread count where OMP achieves its best time.
 
 | Label | Size | Best threads | Speedup | Efficiency |
 |---|---|---|---|---|
-| binary_L11 | 32x32 | 4 | 1.16× | 29.0% |
-| binary_L11 | 64x64 | 8 | 2.64× | 33.0% |
-| binary_L11 | 128x128 | 8 | 5.27× | 65.9% |
-| binary_L11 | 256x256 | 16 | 8.23× | 51.4% |
-| smooth_N3 | 32x32 | 4 | 1.07× | 26.8% |
-| smooth_N3 | 64x64 | 4 | 1.64× | 41.1% |
-| smooth_N3 | 128x128 | 4 | 2.23× | 55.6% |
-| terrain_L33 | 32x32 | 4 | 1.89× | 47.3% |
-| terrain_L33 | 64x64 | 8 | 4.09× | 51.1% |
-| terrain_L33 | 128x128 | 8 | 5.69× | 71.1% |
+| binary_L11 | 32x32 | 4 | 1.16Ã— | 29.0% |
+| binary_L11 | 64x64 | 8 | 2.64Ã— | 33.0% |
+| binary_L11 | 128x128 | 8 | 5.27Ã— | 65.9% |
+| binary_L11 | 256x256 | 16 | 8.23Ã— | 51.4% |
+| smooth_N3 | 32x32 | 4 | 1.07Ã— | 26.8% |
+| smooth_N3 | 64x64 | 4 | 1.64Ã— | 41.1% |
+| smooth_N3 | 128x128 | 4 | 2.23Ã— | 55.6% |
+| terrain_L33 | 32x32 | 4 | 1.89Ã— | 47.3% |
+| terrain_L33 | 64x64 | 8 | 4.09Ã— | 51.1% |
+| terrain_L33 | 128x128 | 8 | 5.69Ã— | 71.1% |
 
 ## Strong-scaling efficiency knee
 
@@ -40,35 +42,35 @@ Configurations where adding threads makes the code slower than serial. Diagnosti
 
 | Label | Size | Threads | Serial (s) | OMP (s) | Slowdown |
 |---|---|---|---|---|---|
-| binary_L11 | 32x32 | 8 | 0.02 | 0.02 | 1.10× slower |
-| binary_L11 | 32x32 | 16 | 0.02 | 0.05 | 2.99× slower |
-| binary_L11 | 64x64 | 16 | 0.25 | 0.38 | 1.54× slower |
-| binary_L11 | 32x32 | 32 | 0.02 | 0.08 | 5.41× slower |
-| binary_L11 | 64x64 | 32 | 0.25 | 0.65 | 2.62× slower |
-| binary_L11 | 128x128 | 32 | 3.97 | 4.53 | 1.14× slower |
-| binary_L11 | 32x32 | 64 | 0.02 | 0.17 | 11.30× slower |
-| binary_L11 | 64x64 | 64 | 0.25 | 1.51 | 6.08× slower |
-| binary_L11 | 128x128 | 64 | 3.97 | 13.16 | 3.32× slower |
-| binary_L11 | 32x32 | 96 | 0.02 | 0.24 | 16.01× slower |
-| binary_L11 | 64x64 | 96 | 0.25 | 1.57 | 6.31× slower |
-| binary_L11 | 128x128 | 96 | 3.97 | 16.50 | 4.16× slower |
-| binary_L11 | 256x256 | 96 | 61.98 | 90.46 | 1.46× slower |
-| binary_L11 | 32x32 | 192 | 0.02 | 0.64 | 42.62× slower |
-| binary_L11 | 64x64 | 192 | 0.25 | 3.93 | 15.83× slower |
-| binary_L11 | 128x128 | 192 | 3.97 | 35.30 | 8.90× slower |
-| binary_L11 | 256x256 | 192 | 61.98 | 319.11 | 5.15× slower |
-| smooth_N3 | 32x32 | 2 | 0.00 | 0.00 | 1.04× slower |
-| smooth_N3 | 32x32 | 8 | 0.00 | 0.00 | 2.03× slower |
-| smooth_N3 | 64x64 | 8 | 0.01 | 0.02 | 1.40× slower |
-| smooth_N3 | 32x32 | 16 | 0.00 | 0.01 | 5.43× slower |
-| smooth_N3 | 64x64 | 16 | 0.01 | 0.06 | 3.77× slower |
-| smooth_N3 | 128x128 | 16 | 0.09 | 0.21 | 2.31× slower |
-| smooth_N3 | 32x32 | 32 | 0.00 | 0.02 | 8.80× slower |
-| smooth_N3 | 64x64 | 32 | 0.01 | 0.09 | 6.19× slower |
-| smooth_N3 | 128x128 | 32 | 0.09 | 0.38 | 4.10× slower |
-| terrain_L33 | 32x32 | 16 | 0.06 | 0.07 | 1.34× slower |
-| terrain_L33 | 32x32 | 32 | 0.06 | 0.14 | 2.48× slower |
-| terrain_L33 | 64x64 | 32 | 0.90 | 0.99 | 1.10× slower |
+| binary_L11 | 32x32 | 8 | 0.02 | 0.02 | 1.10Ã— slower |
+| binary_L11 | 32x32 | 16 | 0.02 | 0.05 | 2.99Ã— slower |
+| binary_L11 | 64x64 | 16 | 0.25 | 0.38 | 1.54Ã— slower |
+| binary_L11 | 32x32 | 32 | 0.02 | 0.08 | 5.41Ã— slower |
+| binary_L11 | 64x64 | 32 | 0.25 | 0.65 | 2.62Ã— slower |
+| binary_L11 | 128x128 | 32 | 3.97 | 4.53 | 1.14Ã— slower |
+| binary_L11 | 32x32 | 64 | 0.02 | 0.17 | 11.30Ã— slower |
+| binary_L11 | 64x64 | 64 | 0.25 | 1.51 | 6.08Ã— slower |
+| binary_L11 | 128x128 | 64 | 3.97 | 13.16 | 3.32Ã— slower |
+| binary_L11 | 32x32 | 96 | 0.02 | 0.24 | 16.01Ã— slower |
+| binary_L11 | 64x64 | 96 | 0.25 | 1.57 | 6.31Ã— slower |
+| binary_L11 | 128x128 | 96 | 3.97 | 16.50 | 4.16Ã— slower |
+| binary_L11 | 256x256 | 96 | 61.98 | 90.46 | 1.46Ã— slower |
+| binary_L11 | 32x32 | 192 | 0.02 | 0.64 | 42.62Ã— slower |
+| binary_L11 | 64x64 | 192 | 0.25 | 3.93 | 15.83Ã— slower |
+| binary_L11 | 128x128 | 192 | 3.97 | 35.30 | 8.90Ã— slower |
+| binary_L11 | 256x256 | 192 | 61.98 | 319.11 | 5.15Ã— slower |
+| smooth_N3 | 32x32 | 2 | 0.00 | 0.00 | 1.04Ã— slower |
+| smooth_N3 | 32x32 | 8 | 0.00 | 0.00 | 2.03Ã— slower |
+| smooth_N3 | 64x64 | 8 | 0.01 | 0.02 | 1.40Ã— slower |
+| smooth_N3 | 32x32 | 16 | 0.00 | 0.01 | 5.43Ã— slower |
+| smooth_N3 | 64x64 | 16 | 0.01 | 0.06 | 3.77Ã— slower |
+| smooth_N3 | 128x128 | 16 | 0.09 | 0.21 | 2.31Ã— slower |
+| smooth_N3 | 32x32 | 32 | 0.00 | 0.02 | 8.80Ã— slower |
+| smooth_N3 | 64x64 | 32 | 0.01 | 0.09 | 6.19Ã— slower |
+| smooth_N3 | 128x128 | 32 | 0.09 | 0.38 | 4.10Ã— slower |
+| terrain_L33 | 32x32 | 16 | 0.06 | 0.07 | 1.34Ã— slower |
+| terrain_L33 | 32x32 | 32 | 0.06 | 0.14 | 2.48Ã— slower |
+| terrain_L33 | 64x64 | 32 | 0.90 | 0.99 | 1.10Ã— slower |
 
 ## Workload sensitivity
 
@@ -76,15 +78,15 @@ Does L (number of unique tiles) affect parallel efficiency?
 
 | Size | binary_L11 | smooth_N3 | terrain_L33 |
 |---|---|---|---|
-| 32x32 | 1.16× | 1.07× | 1.89× |
-| 64x64 | 2.64× | 1.64× | 4.09× |
-| 128x128 | 5.27× | 2.23× | 5.69× |
-| 256x256 | 8.23× | — | — |
+| 32x32 | 1.16Ã— | 1.07Ã— | 1.89Ã— |
+| 64x64 | 2.64Ã— | 1.64Ã— | 4.09Ã— |
+| 128x128 | 5.27Ã— | 2.23Ã— | 5.69Ã— |
+| 256x256 | 8.23Ã— | not recorded | not recorded |
 
 ## Kokkos thread sensitivity
 
 Kokkos solve times across 'thread' counts. The Kokkos backend
-doesn't take a threads argument from `wfc_benchmark` — it uses
+doesn't take a threads argument from `wfc_benchmark`; it uses
 the default Kokkos host execution space concurrency. So all
 'thread' columns should give the same result; if they do, this
 documents that the kokkos sweep is effectively a single-config
@@ -94,26 +96,26 @@ run with statistical replicates rather than a scaling study.
 
 | Size | -1t | 1t | 2t | 4t | 8t | 16t | 32t | 64t | 96t | 192t |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 32x32 | — | 0.22 | 0.22 | 0.17 | 0.22 | 0.22 | 0.22 | 0.22 | 0.22 | 0.21 |
-| 64x64 | — | 0.80 | 0.82 | 0.84 | 0.79 | 0.83 | 0.83 | 0.84 | 0.80 | 0.82 |
-| 128x128 | — | 3.46 | 3.42 | 3.42 | 3.42 | 3.41 | 3.42 | 3.41 | 3.42 | 3.42 |
-| 256x256 | — | 13.84 | 13.63 | 13.63 | 13.74 | 13.63 | 13.61 | 13.75 | 13.72 | 13.72 |
+| 32x32 | not recorded | 0.22 | 0.22 | 0.17 | 0.22 | 0.22 | 0.22 | 0.22 | 0.22 | 0.21 |
+| 64x64 | not recorded | 0.80 | 0.82 | 0.84 | 0.79 | 0.83 | 0.83 | 0.84 | 0.80 | 0.82 |
+| 128x128 | not recorded | 3.46 | 3.42 | 3.42 | 3.42 | 3.41 | 3.42 | 3.41 | 3.42 | 3.42 |
+| 256x256 | not recorded | 13.84 | 13.63 | 13.63 | 13.74 | 13.63 | 13.61 | 13.75 | 13.72 | 13.72 |
 
 ### `smooth_N3`
 
 | Size | -1t | 1t | 2t | 4t | 8t | 16t | 32t | 64t | 96t | 192t |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 32x32 | 0.01 | — | — | — | — | — | — | — | — | — |
-| 64x64 | 0.06 | — | — | — | — | — | — | — | — | — |
-| 128x128 | 0.23 | — | — | — | — | — | — | — | — | — |
-| 256x256 | — | — | — | — | — | — | — | — | — | — |
+| 32x32 | 0.01 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
+| 64x64 | 0.06 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
+| 128x128 | 0.23 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
+| 256x256 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
 
 ### `terrain_L33`
 
 | Size | -1t | 1t | 2t | 4t | 8t | 16t | 32t | 64t | 96t | 192t |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 32x32 | 0.35 | — | — | — | — | — | — | — | — | — |
-| 64x64 | 1.29 | — | — | — | — | — | — | — | — | — |
-| 128x128 | 5.65 | — | — | — | — | — | — | — | — | — |
-| 256x256 | — | — | — | — | — | — | — | — | — | — |
+| 32x32 | 0.35 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
+| 64x64 | 1.29 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
+| 128x128 | 5.65 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
+| 256x256 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
 

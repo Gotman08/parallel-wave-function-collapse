@@ -1,13 +1,17 @@
-### Strong scaling speedup — `binary_L11`
+# Historical scaling tables
+
+> Historical analysis: these tables were retained from earlier cluster runs and were not recomputed during the overhaul. The current measured protocol and results are in [docs/results.md](../docs/results.md).
+
+### Strong scaling speedup: `binary_L11`
 
 | Size | 1t | 2t | 4t | 8t | 16t | 32t | 64t | 96t | 192t |
 |---|---|---|---|---|---|---|---|---|---|
-| 32x32 | 0.84× | 1.10× | 1.16× | 0.91× | 0.33× | 0.18× | 0.09× | 0.06× | 0.02× |
-| 64x64 | 0.96× | 1.66× | 2.54× | 2.64× | 0.65× | 0.38× | 0.16× | 0.16× | 0.06× |
-| 128x128 | 1.00× | 1.89× | 3.39× | 5.27× | 2.60× | 0.87× | 0.30× | 0.24× | 0.11× |
-| 256x256 | 1.00× | 1.93× | 3.66× | 6.75× | 8.23× | 3.91× | 1.26× | 0.69× | 0.19× |
+| 32x32 | 0.84Ã— | 1.10Ã— | 1.16Ã— | 0.91Ã— | 0.33Ã— | 0.18Ã— | 0.09Ã— | 0.06Ã— | 0.02Ã— |
+| 64x64 | 0.96Ã— | 1.66Ã— | 2.54Ã— | 2.64Ã— | 0.65Ã— | 0.38Ã— | 0.16Ã— | 0.16Ã— | 0.06Ã— |
+| 128x128 | 1.00Ã— | 1.89Ã— | 3.39Ã— | 5.27Ã— | 2.60Ã— | 0.87Ã— | 0.30Ã— | 0.24Ã— | 0.11Ã— |
+| 256x256 | 1.00Ã— | 1.93Ã— | 3.66Ã— | 6.75Ã— | 8.23Ã— | 3.91Ã— | 1.26Ã— | 0.69Ã— | 0.19Ã— |
 
-### Parallel efficiency — `binary_L11`
+### Parallel efficiency: `binary_L11`
 
 Efficiency = speedup / threads. 100% = ideal scaling.
 
@@ -18,56 +22,56 @@ Efficiency = speedup / threads. 100% = ideal scaling.
 | 128x128 | 100% | 95% | 85% | 66% | 16% | 3% | 0% | 0% | 0% |
 | 256x256 | 100% | 97% | 92% | 84% | 51% | 12% | 2% | 1% | 0% |
 
-### Peak performance — `binary_L11`
+### Peak performance: `binary_L11`
 
 | Size | Serial (s) | Best parallel (s) | Best threads | Peak speedup |
 |---|---|---|---|---|
-| 32x32 | 0.015 | 0.013 | 4 | 1.16× |
-| 64x64 | 0.248 | 0.094 | 8 | 2.64× |
-| 128x128 | 3.967 | 0.752 | 8 | 5.27× |
-| 256x256 | 61.983 | 7.533 | 16 | 8.23× |
+| 32x32 | 0.015 | 0.013 | 4 | 1.16Ã— |
+| 64x64 | 0.248 | 0.094 | 8 | 2.64Ã— |
+| 128x128 | 3.967 | 0.752 | 8 | 5.27Ã— |
+| 256x256 | 61.983 | 7.533 | 16 | 8.23Ã— |
 
-### Backend solve time (s) — `binary_L11`, 32×32
+### Backend solve time (s): `binary_L11`, 32Ã—32
 
 | Backend | 1t | 2t | 4t | 8t | 16t | 32t | 64t | 96t | 192t |
 |---|---|---|---|---|---|---|---|---|---|
 | kokkos | 0.219 | 0.219 | 0.173 | 0.218 | 0.218 | 0.218 | 0.218 | 0.219 | 0.214 |
 | omp | 0.018 | 0.014 | 0.013 | 0.017 | 0.045 | 0.082 | 0.171 | 0.242 | 0.643 |
-| serial | 0.015 | — | — | — | — | — | — | — | — |
+| serial | 0.015 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
 
-### Backend solve time (s) — `binary_L11`, 64×64
+### Backend solve time (s): `binary_L11`, 64Ã—64
 
 | Backend | 1t | 2t | 4t | 8t | 16t | 32t | 64t | 96t | 192t |
 |---|---|---|---|---|---|---|---|---|---|
 | kokkos | 0.803 | 0.819 | 0.837 | 0.794 | 0.834 | 0.829 | 0.838 | 0.796 | 0.822 |
 | omp | 0.259 | 0.149 | 0.098 | 0.094 | 0.382 | 0.651 | 1.511 | 1.568 | 3.931 |
-| serial | 0.248 | — | — | — | — | — | — | — | — |
+| serial | 0.248 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
 
-### Backend solve time (s) — `binary_L11`, 128×128
+### Backend solve time (s): `binary_L11`, 128Ã—128
 
 | Backend | 1t | 2t | 4t | 8t | 16t | 32t | 64t | 96t | 192t |
 |---|---|---|---|---|---|---|---|---|---|
 | kokkos | 3.458 | 3.420 | 3.421 | 3.425 | 3.415 | 3.418 | 3.412 | 3.422 | 3.418 |
 | omp | 3.978 | 2.095 | 1.170 | 0.752 | 1.525 | 4.534 | 13.163 | 16.499 | 35.302 |
-| serial | 3.967 | — | — | — | — | — | — | — | — |
+| serial | 3.967 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
 
-### Backend solve time (s) — `binary_L11`, 256×256
+### Backend solve time (s): `binary_L11`, 256Ã—256
 
 | Backend | 1t | 2t | 4t | 8t | 16t | 32t | 64t | 96t | 192t |
 |---|---|---|---|---|---|---|---|---|---|
 | kokkos | 13.842 | 13.633 | 13.628 | 13.742 | 13.626 | 13.614 | 13.746 | 13.723 | 13.718 |
 | omp | 61.847 | 32.089 | 16.931 | 9.183 | 7.533 | 15.851 | 49.055 | 90.458 | 319.113 |
-| serial | 61.983 | — | — | — | — | — | — | — | — |
+| serial | 61.983 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
 
-### Strong scaling speedup — `smooth_N3`
+### Strong scaling speedup: `smooth_N3`
 
 | Size | 1t | 2t | 4t | 8t | 16t | 32t |
 |---|---|---|---|---|---|---|
-| 32x32 | 0.78× | 0.96× | 1.07× | 0.49× | 0.18× | 0.11× |
-| 64x64 | 0.90× | 1.31× | 1.64× | 0.71× | 0.27× | 0.16× |
-| 128x128 | 1.00× | 1.59× | 2.23× | 1.03× | 0.43× | 0.24× |
+| 32x32 | 0.78Ã— | 0.96Ã— | 1.07Ã— | 0.49Ã— | 0.18Ã— | 0.11Ã— |
+| 64x64 | 0.90Ã— | 1.31Ã— | 1.64Ã— | 0.71Ã— | 0.27Ã— | 0.16Ã— |
+| 128x128 | 1.00Ã— | 1.59Ã— | 2.23Ã— | 1.03Ã— | 0.43Ã— | 0.24Ã— |
 
-### Parallel efficiency — `smooth_N3`
+### Parallel efficiency: `smooth_N3`
 
 Efficiency = speedup / threads. 100% = ideal scaling.
 
@@ -77,47 +81,47 @@ Efficiency = speedup / threads. 100% = ideal scaling.
 | 64x64 | 90% | 65% | 41% | 9% | 2% | 1% |
 | 128x128 | 100% | 79% | 56% | 13% | 3% | 1% |
 
-### Peak performance — `smooth_N3`
+### Peak performance: `smooth_N3`
 
 | Size | Serial (s) | Best parallel (s) | Best threads | Peak speedup |
 |---|---|---|---|---|
-| 32x32 | 0.002 | 0.002 | 4 | 1.07× |
-| 64x64 | 0.015 | 0.009 | 4 | 1.64× |
-| 128x128 | 0.092 | 0.041 | 4 | 2.23× |
+| 32x32 | 0.002 | 0.002 | 4 | 1.07Ã— |
+| 64x64 | 0.015 | 0.009 | 4 | 1.64Ã— |
+| 128x128 | 0.092 | 0.041 | 4 | 2.23Ã— |
 
-### Backend solve time (s) — `smooth_N3`, 32×32
-
-| Backend | -1t | 1t | 2t | 4t | 8t | 16t | 32t |
-|---|---|---|---|---|---|---|---|
-| kokkos | 0.015 | — | — | — | — | — | — |
-| omp | — | 0.003 | 0.003 | 0.002 | 0.005 | 0.013 | 0.021 |
-| serial | — | 0.002 | — | — | — | — | — |
-
-### Backend solve time (s) — `smooth_N3`, 64×64
+### Backend solve time (s): `smooth_N3`, 32Ã—32
 
 | Backend | -1t | 1t | 2t | 4t | 8t | 16t | 32t |
 |---|---|---|---|---|---|---|---|
-| kokkos | 0.062 | — | — | — | — | — | — |
-| omp | — | 0.016 | 0.011 | 0.009 | 0.021 | 0.056 | 0.092 |
-| serial | — | 0.015 | — | — | — | — | — |
+| kokkos | 0.015 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
+| omp | not recorded | 0.003 | 0.003 | 0.002 | 0.005 | 0.013 | 0.021 |
+| serial | not recorded | 0.002 | not recorded | not recorded | not recorded | not recorded | not recorded |
 
-### Backend solve time (s) — `smooth_N3`, 128×128
+### Backend solve time (s): `smooth_N3`, 64Ã—64
 
 | Backend | -1t | 1t | 2t | 4t | 8t | 16t | 32t |
 |---|---|---|---|---|---|---|---|
-| kokkos | 0.229 | — | — | — | — | — | — |
-| omp | — | 0.092 | 0.058 | 0.041 | 0.089 | 0.212 | 0.376 |
-| serial | — | 0.092 | — | — | — | — | — |
+| kokkos | 0.062 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
+| omp | not recorded | 0.016 | 0.011 | 0.009 | 0.021 | 0.056 | 0.092 |
+| serial | not recorded | 0.015 | not recorded | not recorded | not recorded | not recorded | not recorded |
 
-### Strong scaling speedup — `terrain_L33`
+### Backend solve time (s): `smooth_N3`, 128Ã—128
+
+| Backend | -1t | 1t | 2t | 4t | 8t | 16t | 32t |
+|---|---|---|---|---|---|---|---|
+| kokkos | 0.229 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
+| omp | not recorded | 0.092 | 0.058 | 0.041 | 0.089 | 0.212 | 0.376 |
+| serial | not recorded | 0.092 | not recorded | not recorded | not recorded | not recorded | not recorded |
+
+### Strong scaling speedup: `terrain_L33`
 
 | Size | 1t | 2t | 4t | 8t | 16t | 32t |
 |---|---|---|---|---|---|---|
-| 32x32 | 0.90× | 1.47× | 1.89× | 1.76× | 0.74× | 0.40× |
-| 64x64 | 0.97× | 1.77× | 3.00× | 4.09× | 1.53× | 0.91× |
-| 128x128 | 0.98× | 1.85× | 3.38× | 5.69× | 5.01× | 2.25× |
+| 32x32 | 0.90Ã— | 1.47Ã— | 1.89Ã— | 1.76Ã— | 0.74Ã— | 0.40Ã— |
+| 64x64 | 0.97Ã— | 1.77Ã— | 3.00Ã— | 4.09Ã— | 1.53Ã— | 0.91Ã— |
+| 128x128 | 0.98Ã— | 1.85Ã— | 3.38Ã— | 5.69Ã— | 5.01Ã— | 2.25Ã— |
 
-### Parallel efficiency — `terrain_L33`
+### Parallel efficiency: `terrain_L33`
 
 Efficiency = speedup / threads. 100% = ideal scaling.
 
@@ -127,35 +131,35 @@ Efficiency = speedup / threads. 100% = ideal scaling.
 | 64x64 | 97% | 89% | 75% | 51% | 10% | 3% |
 | 128x128 | 98% | 92% | 85% | 71% | 31% | 7% |
 
-### Peak performance — `terrain_L33`
+### Peak performance: `terrain_L33`
 
 | Size | Serial (s) | Best parallel (s) | Best threads | Peak speedup |
 |---|---|---|---|---|
-| 32x32 | 0.056 | 0.029 | 4 | 1.89× |
-| 64x64 | 0.903 | 0.221 | 8 | 4.09× |
-| 128x128 | 14.614 | 2.569 | 8 | 5.69× |
+| 32x32 | 0.056 | 0.029 | 4 | 1.89Ã— |
+| 64x64 | 0.903 | 0.221 | 8 | 4.09Ã— |
+| 128x128 | 14.614 | 2.569 | 8 | 5.69Ã— |
 
-### Backend solve time (s) — `terrain_L33`, 32×32
-
-| Backend | -1t | 1t | 2t | 4t | 8t | 16t | 32t |
-|---|---|---|---|---|---|---|---|
-| kokkos | 0.351 | — | — | — | — | — | — |
-| omp | — | 0.062 | 0.038 | 0.029 | 0.032 | 0.075 | 0.138 |
-| serial | — | 0.056 | — | — | — | — | — |
-
-### Backend solve time (s) — `terrain_L33`, 64×64
+### Backend solve time (s): `terrain_L33`, 32Ã—32
 
 | Backend | -1t | 1t | 2t | 4t | 8t | 16t | 32t |
 |---|---|---|---|---|---|---|---|
-| kokkos | 1.289 | — | — | — | — | — | — |
-| omp | — | 0.927 | 0.510 | 0.301 | 0.221 | 0.592 | 0.994 |
-| serial | — | 0.903 | — | — | — | — | — |
+| kokkos | 0.351 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
+| omp | not recorded | 0.062 | 0.038 | 0.029 | 0.032 | 0.075 | 0.138 |
+| serial | not recorded | 0.056 | not recorded | not recorded | not recorded | not recorded | not recorded |
 
-### Backend solve time (s) — `terrain_L33`, 128×128
+### Backend solve time (s): `terrain_L33`, 64Ã—64
 
 | Backend | -1t | 1t | 2t | 4t | 8t | 16t | 32t |
 |---|---|---|---|---|---|---|---|
-| kokkos | 5.654 | — | — | — | — | — | — |
-| omp | — | 14.920 | 7.917 | 4.320 | 2.569 | 2.918 | 6.499 |
-| serial | — | 14.614 | — | — | — | — | — |
+| kokkos | 1.289 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
+| omp | not recorded | 0.927 | 0.510 | 0.301 | 0.221 | 0.592 | 0.994 |
+| serial | not recorded | 0.903 | not recorded | not recorded | not recorded | not recorded | not recorded |
+
+### Backend solve time (s): `terrain_L33`, 128Ã—128
+
+| Backend | -1t | 1t | 2t | 4t | 8t | 16t | 32t |
+|---|---|---|---|---|---|---|---|
+| kokkos | 5.654 | not recorded | not recorded | not recorded | not recorded | not recorded | not recorded |
+| omp | not recorded | 14.920 | 7.917 | 4.320 | 2.569 | 2.918 | 6.499 |
+| serial | not recorded | 14.614 | not recorded | not recorded | not recorded | not recorded | not recorded |
 

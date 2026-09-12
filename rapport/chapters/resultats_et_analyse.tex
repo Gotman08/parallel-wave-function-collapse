@@ -90,7 +90,7 @@ La courbe de speedup (Fig.~\ref{fig:speedup_binary}) trace $S(p)$ pour les quatr
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/scaling/speedup_binary_L11.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/scaling/speedup_binary_L11.png}
 \caption{Speedup binary\_L11. Plus la grille est grande, plus le peak est élevé et plus il se déplace vers la droite.}
 \label{fig:speedup_binary}
 \end{figure}
@@ -99,7 +99,7 @@ La bande min/max (Fig.~\ref{fig:speedup_band_binary}) quantifie la variance entr
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/scaling/speedup_band_binary_L11.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/scaling/speedup_band_binary_L11.png}
 \caption{Bande min/max binary\_L11 (3 répétitions). Étroite en régime stable (1-8 threads), large au-delà de 32 threads.}
 \label{fig:speedup_band_binary}
 \end{figure}
@@ -108,7 +108,7 @@ L'efficacité parallèle $E(p) = S(p)/p$ (Fig.~\ref{fig:efficiency_binary}) donn
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/scaling/efficiency_binary_L11.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/scaling/efficiency_binary_L11.png}
 \caption{Efficacité parallèle binary\_L11. Décrochage net au-delà de 32 threads, pas un plateau.}
 \label{fig:efficiency_binary}
 \end{figure}
@@ -117,7 +117,7 @@ Le throughput (Fig.~\ref{fig:throughput_binary}) inverse la lecture : à taille 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/scaling/throughput_binary_L11.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/scaling/throughput_binary_L11.png}
 \caption{Throughput binary\_L11. Pic 15.4 Mcells/s à 16 threads sur 256$\times$256 ($14\times$ vs serial).}
 \label{fig:throughput_binary}
 \end{figure}
@@ -126,7 +126,7 @@ Le heatmap taille$\times$threads (Fig.~\ref{fig:heatmap_binary}) résume le tout
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/scaling/heatmap_binary_L11.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/scaling/heatmap_binary_L11.png}
 \caption{Heatmap binary\_L11 (taille $\times$ threads, couleur = temps). Le sweet spot diagonal indique que la taille optimale suit le nombre de threads.}
 \label{fig:heatmap_binary}
 \end{figure}
@@ -186,12 +186,12 @@ La mosaïque (Fig.~\ref{fig:amdahl_binary_grid}) trace les 4 fits binary\_L11 po
 \centering
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/amdahl/amdahl_binary_L11_32.png}
+\includegraphics[width=\linewidth]{../docs/figures/amdahl/amdahl_binary_L11_32.png}
 \caption{32×32, $f = 0.18$, ceiling $1.2\times$.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/amdahl/amdahl_binary_L11_64.png}
+\includegraphics[width=\linewidth]{../docs/figures/amdahl/amdahl_binary_L11_64.png}
 \caption{64×64, $f = 0.74$, ceiling $3.8\times$.}
 \end{subfigure}
 
@@ -199,12 +199,12 @@ La mosaïque (Fig.~\ref{fig:amdahl_binary_grid}) trace les 4 fits binary\_L11 po
 
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/amdahl/amdahl_binary_L11_128.png}
+\includegraphics[width=\linewidth]{../docs/figures/amdahl/amdahl_binary_L11_128.png}
 \caption{128×128, $f = 0.93$, ceiling $13.8\times$.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/amdahl/amdahl_binary_L11_256.png}
+\includegraphics[width=\linewidth]{../docs/figures/amdahl/amdahl_binary_L11_256.png}
 \caption{256×256, $f = 0.94$, ceiling $17.8\times$.}
 \end{subfigure}
 
@@ -222,7 +222,7 @@ Re-fitter Amdahl après activation de l'optim frontier-threshold (Fig.~\ref{fig:
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/amdahl/amdahl_binary_optim_128.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/amdahl/amdahl_binary_optim_128.png}
 \caption[Fit Amdahl binary 128 après optim frontier-threshold.]{Fit
 Amdahl binary\_L11 128×128 après frontier-threshold. $f$ passe de
 0.928 à 0.956, ceiling de $13.8\times$ à $22.9\times$.}
@@ -237,17 +237,17 @@ La mosaïque par sample (Fig.~\ref{fig:amdahl_other_samples}) compare terrain\_L
 \centering
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/amdahl/amdahl_terrain_L33_32.png}
+\includegraphics[width=\linewidth]{../docs/figures/amdahl/amdahl_terrain_L33_32.png}
 \caption{terrain 32×32.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/amdahl/amdahl_terrain_L33_64.png}
+\includegraphics[width=\linewidth]{../docs/figures/amdahl/amdahl_terrain_L33_64.png}
 \caption{terrain 64×64.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/amdahl/amdahl_terrain_L33_128.png}
+\includegraphics[width=\linewidth]{../docs/figures/amdahl/amdahl_terrain_L33_128.png}
 \caption{terrain 128×128, $f=0.94$.}
 \end{subfigure}
 
@@ -255,17 +255,17 @@ La mosaïque par sample (Fig.~\ref{fig:amdahl_other_samples}) compare terrain\_L
 
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/amdahl/amdahl_smooth_N3_32.png}
+\includegraphics[width=\linewidth]{../docs/figures/amdahl/amdahl_smooth_N3_32.png}
 \caption{smooth\_N3 32×32.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/amdahl/amdahl_smooth_N3_64.png}
+\includegraphics[width=\linewidth]{../docs/figures/amdahl/amdahl_smooth_N3_64.png}
 \caption{smooth\_N3 64×64.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/amdahl/amdahl_smooth_N3_128.png}
+\includegraphics[width=\linewidth]{../docs/figures/amdahl/amdahl_smooth_N3_128.png}
 \caption{smooth\_N3 128×128, $f=0.74$.}
 \end{subfigure}
 
@@ -318,7 +318,7 @@ terrain\_L33 (33 tuiles, $N=2$) scale mieux que binary\_L11 à taille égale. Su
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/scaling/speedup_terrain_L33.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/scaling/speedup_terrain_L33.png}
 \caption{Speedup terrain\_L33. Peak 5.69$\times$ à 8 threads sur 128$\times$128.}
 \label{fig:speedup_terrain}
 \end{figure}
@@ -329,12 +329,12 @@ L'efficacité et le throughput (Fig.~\ref{fig:scaling_terrain_combo}) confirment
 \centering
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/efficiency_terrain_L33.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/efficiency_terrain_L33.png}
 \caption{Efficacité parallèle terrain\_L33.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/throughput_terrain_L33.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/throughput_terrain_L33.png}
 \caption{Throughput terrain\_L33.}
 \end{subfigure}
 
@@ -346,14 +346,14 @@ Le heatmap terrain\_L33 (Fig.~\ref{fig:heatmap_terrain}) montre un sweet spot di
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/scaling/heatmap_terrain_L33.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/scaling/heatmap_terrain_L33.png}
 \caption{Heatmap terrain\_L33. Sweet spot diagonal plus large que binary\_L11.}
 \label{fig:heatmap_terrain}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/scaling/speedup_band_terrain_L33.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/scaling/speedup_band_terrain_L33.png}
 \caption{Bande min/max terrain\_L33. Étroite jusqu'à 16 threads.}
 \label{fig:speedup_band_terrain}
 \end{figure}
@@ -378,7 +378,7 @@ smooth\_N3 (12 tuiles, $N=3$, gradients lisses) plafonne à 2.23$\times$ à 4 th
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/scaling/speedup_smooth_N3.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/scaling/speedup_smooth_N3.png}
 \caption{Speedup smooth\_N3. Peak 2.23$\times$ à 4 threads, régression dès 8.}
 \label{fig:speedup_smooth}
 \end{figure}
@@ -389,12 +389,12 @@ L'efficacité et le throughput (Fig.~\ref{fig:scaling_smooth_combo}) confirment 
 \centering
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/efficiency_smooth_N3.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/efficiency_smooth_N3.png}
 \caption{Efficacité smooth\_N3.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/throughput_smooth_N3.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/throughput_smooth_N3.png}
 \caption{Throughput smooth\_N3.}
 \end{subfigure}
 
@@ -404,14 +404,14 @@ L'efficacité et le throughput (Fig.~\ref{fig:scaling_smooth_combo}) confirment 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/scaling/heatmap_smooth_N3.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/scaling/heatmap_smooth_N3.png}
 \caption{Heatmap smooth\_N3. Sweet spot étroit autour de 4 threads, indépendant de la taille.}
 \label{fig:heatmap_smooth}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/scaling/speedup_band_smooth_N3.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/scaling/speedup_band_smooth_N3.png}
 \caption{Bande min/max smooth\_N3. Élargissement dès 8 threads : variance forte hors du sweet spot.}
 \label{fig:speedup_band_smooth}
 \end{figure}
@@ -492,7 +492,7 @@ Pas de fix algorithmique côté intra-attempt sans risquer de régresser binary.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/optim/frontier_threshold_compare.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/optim/frontier_threshold_compare.png}
 \caption{A/B « frontier-threshold » sur binary\_L11 128×128 (job 544356).}
 \label{fig:optim_frontier}
 \end{figure}
@@ -508,12 +508,12 @@ speedup, de l'efficacité et du throughput sous le régime optimisé.
 \centering
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/speedup_binary_optim.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/speedup_binary_optim.png}
 \caption{Speedup binary\_optim 128.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/speedup_band_binary_optim.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/speedup_band_binary_optim.png}
 \caption{Bande min/max binary\_optim.}
 \end{subfigure}
 
@@ -527,12 +527,12 @@ et le pic est plus stable (la bande min/max s'amincit).}
 \centering
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/efficiency_binary_optim.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/efficiency_binary_optim.png}
 \caption{Efficacité binary\_optim.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/throughput_binary_optim.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/throughput_binary_optim.png}
 \caption{Throughput binary\_optim.}
 \end{subfigure}
 
@@ -544,7 +544,7 @@ chute sous 50\% se produit plus tard qu'en baseline.}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/scaling/heatmap_binary_optim.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/scaling/heatmap_binary_optim.png}
 \caption{Heatmap binary\_optim. La zone verte (sweet spot) s'élargit
 légèrement vers le haut-droit comparée à binary\_L11
 (Figure~\ref{fig:heatmap_binary}) : l'optim étire la plage de tailles
@@ -594,12 +594,12 @@ La mosaïque (Fig.~\ref{fig:backends_binary}) trace les trois backends sur les 4
 \centering
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/backends_binary_L11_32.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/backends_binary_L11_32.png}
 \caption{binary\_L11 32×32.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/backends_binary_L11_64.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/backends_binary_L11_64.png}
 \caption{binary\_L11 64×64.}
 \end{subfigure}
 
@@ -607,12 +607,12 @@ La mosaïque (Fig.~\ref{fig:backends_binary}) trace les trois backends sur les 4
 
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/backends_binary_L11_128.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/backends_binary_L11_128.png}
 \caption{binary\_L11 128×128.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/backends_binary_L11_256.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/backends_binary_L11_256.png}
 \caption{binary\_L11 256×256.}
 \end{subfigure}
 
@@ -626,17 +626,17 @@ Sur les autres samples (Fig.~\ref{fig:backends_other}), le pattern dépend de la
 \centering
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/backends_terrain_L33_32.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/backends_terrain_L33_32.png}
 \caption{terrain 32×32.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/backends_terrain_L33_64.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/backends_terrain_L33_64.png}
 \caption{terrain 64×64.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/backends_terrain_L33_128.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/backends_terrain_L33_128.png}
 \caption{terrain 128×128.}
 \end{subfigure}
 
@@ -644,17 +644,17 @@ Sur les autres samples (Fig.~\ref{fig:backends_other}), le pattern dépend de la
 
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/backends_smooth_N3_32.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/backends_smooth_N3_32.png}
 \caption{smooth 32×32.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/backends_smooth_N3_64.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/backends_smooth_N3_64.png}
 \caption{smooth 64×64.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/scaling/backends_smooth_N3_128.png}
+\includegraphics[width=\linewidth]{../docs/figures/scaling/backends_smooth_N3_128.png}
 \caption{smooth 128×128.}
 \end{subfigure}
 
@@ -666,7 +666,7 @@ L'effet de l'optim frontier-threshold sur les backends est visible Fig.~\ref{fig
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/scaling/backends_binary_optim_128.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/scaling/backends_binary_optim_128.png}
 \caption{binary\_L11 128×128 après optim frontier-threshold. Delta Kokkos/OMP réduit en régime optimisé.}
 \label{fig:backends_binary_optim}
 \end{figure}
@@ -805,12 +805,12 @@ seed différent → variabilité contrôlée).
 \centering
 \begin{subfigure}[t]{0.45\linewidth}
 \centering
-\includegraphics[width=0.5\linewidth]{results/figures/results/inputs/binary_5x5_input.png}
+\includegraphics[width=0.5\linewidth]{../docs/figures/results/inputs/binary_5x5_input.png}
 \caption{Input 5×5 (sujet).}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.45\linewidth}
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/results/binary_5x5_64x64_N2_seed42.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/results/binary_5x5_64x64_N2_seed42.png}
 \caption{Output 64×64, seed=42.}
 \end{subfigure}
 
@@ -825,17 +825,17 @@ sur 5 attempts.}
 \centering
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=0.6\linewidth]{results/figures/results/inputs/binary_stripes_input.png}
+\includegraphics[width=0.6\linewidth]{../docs/figures/results/inputs/binary_stripes_input.png}
 \caption{stripes (input).}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/binary_stripes_48x48_N2_seed1.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/binary_stripes_48x48_N2_seed1.png}
 \caption{Output 48×48, seed=1.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/binary_checker_48x48_N2_seed2.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/binary_checker_48x48_N2_seed2.png}
 \caption{checker output 48×48.}
 \end{subfigure}
 
@@ -850,12 +850,12 @@ invariants.}
 \centering
 \begin{subfigure}[t]{0.45\linewidth}
 \centering
-\includegraphics[width=0.5\linewidth]{results/figures/results/inputs/binary_dots_input.png}
+\includegraphics[width=0.5\linewidth]{../docs/figures/results/inputs/binary_dots_input.png}
 \caption{Input dots 10×10.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.45\linewidth}
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/results/binary_dots_64x64_N2_seed3.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/results/binary_dots_64x64_N2_seed3.png}
 \caption{Output 64×64, seed=3.}
 \end{subfigure}
 
@@ -871,17 +871,17 @@ contrainte locale impose une séparation par des `0`.}
 \centering
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=0.7\linewidth]{results/figures/results/inputs/multivalue_terrain_input.png}
+\includegraphics[width=0.7\linewidth]{../docs/figures/results/inputs/multivalue_terrain_input.png}
 \caption{Input terrain 14×10.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/multivalue_terrain_64x64_N2_seed7.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/multivalue_terrain_64x64_N2_seed7.png}
 \caption{Output 64×64.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/multivalue_terrain_128x128_N2_seed11.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/multivalue_terrain_128x128_N2_seed11.png}
 \caption{Output 128×128.}
 \end{subfigure}
 
@@ -898,17 +898,17 @@ il ne sait pas qu'il doit faire une seule île.}
 \centering
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=0.7\linewidth]{results/figures/results/inputs/multivalue_smooth_input.png}
+\includegraphics[width=0.7\linewidth]{../docs/figures/results/inputs/multivalue_smooth_input.png}
 \caption{Input smooth 12×12.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/multivalue_smooth_64x64_N2_seed17.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/multivalue_smooth_64x64_N2_seed17.png}
 \caption{Output 64×64, $N=2$.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/multivalue_smooth_64x64_N3_seed19.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/multivalue_smooth_64x64_N3_seed19.png}
 \caption{Output 64×64, $N=3$.}
 \end{subfigure}
 
@@ -924,12 +924,12 @@ et d'un solveur plus lent (12 tuiles à $N=2$ vs.\ 73 à $N=3$).}
 \centering
 \begin{subfigure}[t]{0.45\linewidth}
 \centering
-\includegraphics[width=0.6\linewidth]{results/figures/results/inputs/multivalue_maze_input.png}
+\includegraphics[width=0.6\linewidth]{../docs/figures/results/inputs/multivalue_maze_input.png}
 \caption{Input maze 11×12.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.45\linewidth}
 \centering
-\includegraphics[width=0.85\linewidth]{results/figures/results/multivalue_maze_48x48_N2_seed13.png}
+\includegraphics[width=0.85\linewidth]{../docs/figures/results/multivalue_maze_48x48_N2_seed13.png}
 \caption{Output 48×48, seed=13.}
 \end{subfigure}
 
@@ -952,22 +952,22 @@ grammaire locale du sample.
 \centering
 \begin{subfigure}[t]{0.23\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/inputs/skyline_input.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/inputs/skyline_input.png}
 \caption{Input.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.23\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/gallery/skyline_seed1.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/gallery/skyline_seed1.png}
 \caption{seed=1.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.23\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/gallery/skyline_seed7.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/gallery/skyline_seed7.png}
 \caption{seed=7.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.23\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/gallery/skyline_seed42.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/gallery/skyline_seed42.png}
 \caption{seed=42.}
 \end{subfigure}
 
@@ -982,22 +982,22 @@ villes plausibles.}
 \centering
 \begin{subfigure}[t]{0.23\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/inputs/plant_input.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/inputs/plant_input.png}
 \caption{Input.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.23\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/gallery/plant_seed1.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/gallery/plant_seed1.png}
 \caption{seed=1.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.23\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/gallery/plant_seed7.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/gallery/plant_seed7.png}
 \caption{seed=7.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.23\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/gallery/plant_seed42.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/gallery/plant_seed42.png}
 \caption{seed=42.}
 \end{subfigure}
 
@@ -1012,22 +1012,22 @@ d'orientation plus marquée.}
 \centering
 \begin{subfigure}[t]{0.23\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/inputs/rooms_input.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/inputs/rooms_input.png}
 \caption{Input.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.23\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/gallery/rooms_seed1.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/gallery/rooms_seed1.png}
 \caption{seed=1.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.23\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/gallery/rooms_seed7.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/gallery/rooms_seed7.png}
 \caption{seed=7.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.23\linewidth}
 \centering
-\includegraphics[width=\linewidth]{results/figures/results/gallery/rooms_seed42.png}
+\includegraphics[width=\linewidth]{../docs/figures/results/gallery/rooms_seed42.png}
 \caption{seed=42.}
 \end{subfigure}
 

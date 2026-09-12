@@ -7,6 +7,8 @@ geometry: "margin=2cm"
 
 # 1. Objectif
 
+> Historical integration guide: the editor workflow and version references below were not revalidated during the repository overhaul. They describe the original demonstration, not a current compatibility claim. See the [current plugin status](../ue5_plugin/README.md).
+
 Ce guide explique comment utiliser le solveur WFC du dépôt parent
 pour générer des donjons 3D dans Unreal Engine 5.7, en utilisant tes
 propres assets (StaticMesh).

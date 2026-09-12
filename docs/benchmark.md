@@ -1,5 +1,7 @@
 # Benchmark, analyse de scaling
 
+> Historical analysis: the cluster jobs, scaling figures and GPU results below were not rerun during the repository overhaul. They are retained with their original context. The current reproducible CPU comparison is documented in [results.md](results.md).
+
 Mesures sur Romeo (HPC AMD EPYC 9654 192c × 2 sockets, 8 NUMA nodes,
 RHEL 9, gcc 14.2, OpenMP 4.5, Kokkos 4.4.01 backend OpenMP+SERIAL pour
 les sweeps CPU et CUDA pour les sweeps GPU GH200).
