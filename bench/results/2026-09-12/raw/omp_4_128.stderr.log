@@ -1,0 +1,8 @@
+sample=samples/binary_5x5.txt N=2 tiles=11 max_value=1 rules_s=0.000305555
+[omp_4_128] omp t=4 128x128 rep=0 solve=5.25583s ok=1
+[omp_4_128] omp t=4 128x128 rep=1 solve=5.17234s ok=1
+[omp_4_128] omp t=4 128x128 rep=2 solve=5.30008s ok=1
+[omp_4_128] omp t=4 128x128 rep=3 solve=5.1867s ok=1
+[omp_4_128] omp t=4 128x128 rep=4 solve=5.49621s ok=1
+[omp_4_128] omp t=4 128x128 rep=5 solve=5.46266s ok=1
+completed 1 run groups -> bench/results/2026-09-12/raw/omp_4_128.csv

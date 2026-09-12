@@ -1,0 +1,8 @@
+sample=samples/binary_5x5.txt N=2 tiles=11 max_value=1 rules_s=0.000581443
+[omp_8_64] omp t=8 64x64 rep=0 solve=1.57702s ok=1
+[omp_8_64] omp t=8 64x64 rep=1 solve=1.68839s ok=1
+[omp_8_64] omp t=8 64x64 rep=2 solve=1.73509s ok=1
+[omp_8_64] omp t=8 64x64 rep=3 solve=1.67572s ok=1
+[omp_8_64] omp t=8 64x64 rep=4 solve=1.65863s ok=1
+[omp_8_64] omp t=8 64x64 rep=5 solve=1.6106s ok=1
+completed 1 run groups -> bench/results/2026-09-12/raw/omp_8_64.csv

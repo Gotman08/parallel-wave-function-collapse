@@ -1,0 +1,7 @@
+label,backend,threads,sample,N,rows,cols,seed,repeat,success,attempts,collapses,propagations,rules_s,solve_s,total_s
+omp_4_128,omp,4,samples/binary_5x5.txt,2,128,128,41,0,1,1,8534,64972,0.000305555,5.25583,5.25607
+omp_4_128,omp,4,samples/binary_5x5.txt,2,128,128,42,1,1,1,8107,63337,0.000305555,5.17234,5.17246
+omp_4_128,omp,4,samples/binary_5x5.txt,2,128,128,43,2,1,1,8426,64302,0.000305555,5.30008,5.30021
+omp_4_128,omp,4,samples/binary_5x5.txt,2,128,128,44,3,1,1,8468,64859,0.000305555,5.1867,5.18681
+omp_4_128,omp,4,samples/binary_5x5.txt,2,128,128,45,4,1,1,8387,64793,0.000305555,5.49621,5.49632
+omp_4_128,omp,4,samples/binary_5x5.txt,2,128,128,46,5,1,1,8306,64052,0.000305555,5.46266,5.46282

@@ -1,0 +1,23 @@
+name: Linux build and tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure CPU targets
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DUSE_OMP=ON -DUSE_KOKKOS=OFF -DBUILD_DUNGEON=ON
+      - name: Build
+        run: cmake --build build --parallel 2
+      - name: Run CTest
+        env:
+          OMP_NUM_THREADS: '2'
+        run: ctest --test-dir build --output-on-failure

@@ -1,0 +1,17 @@
+{
+  "python": "3.12.3",
+  "packages": {
+    "matplotlib": "3.11.2",
+    "numpy": "2.5.3",
+    "pillow": "12.3.0"
+  },
+  "plot_sha256": "7fac7f8ec5c4e44a0a31abdcee3cbb27afc12c17548a8d9d990b57757308ebfc",
+  "requirements_sha256": "b6dab00b392625b3c7447030c7ec6506f16a0ff9775b3a9826df9a3e600a890e",
+  "input_sha256": "92923539986dc21e79ed7b86d98aa2bf709746eb0117dbf7a0e87177ae2732b0",
+  "command": "python bench/plot.py",
+  "output": [
+    "docs/assets/benchmark-light.svg",
+    "docs/assets/benchmark-dark.svg"
+  ],
+  "visual_review": "Light and dark PNG previews inspected for labels, contrast and clipping"
+}

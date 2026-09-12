@@ -1,0 +1,112 @@
+2026-09-12T04:51:45+00:00
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found OpenMP_CXX: -fopenmp (found version "4.5") 
+-- Found OpenMP: TRUE (found version "4.5")  
+-- Configuring done (4.5s)
+-- Generating done (1.6s)
+-- Build files have been written to: /mnt/c/Users/nicol/Desktop/Githubrework/worktrees/Projet801/build-wsl
+[  2%] Building CXX object CMakeFiles/wfc_core.dir/src/Grid.cpp.o
+[  4%] Building CXX object CMakeFiles/wfc_core.dir/src/TileSet.cpp.o
+[  6%] Building CXX object CMakeFiles/wfc_core.dir/src/OverlapRules.cpp.o
+[  8%] Building CXX object CMakeFiles/wfc_core.dir/src/Wave.cpp.o
+[ 11%] Building CXX object CMakeFiles/wfc_core.dir/src/GridIO.cpp.o
+[ 13%] Building CXX object CMakeFiles/wfc_core.dir/src/internal/SolverCommon.cpp.o
+[ 15%] Building CXX object CMakeFiles/wfc_core.dir/src/internal/WFCSolverBase.cpp.o
+[ 17%] Building CXX object CMakeFiles/wfc_core.dir/src/solvers/WFCSolverSerial.cpp.o
+[ 20%] Linking CXX static library libwfc_core.a
+[ 20%] Built target wfc_core
+[ 26%] Building CXX object CMakeFiles/wfc_dungeon.dir/apps/wfc_dungeon.cpp.o
+[ 26%] Building CXX object CMakeFiles/test_bitset.dir/tests/test_bitset.cpp.o
+[ 26%] Building CXX object CMakeFiles/wfc_omp_lib.dir/src/solvers/WFCSolverOMP.cpp.o
+[ 28%] Building CXX object CMakeFiles/wfc_serial.dir/apps/wfc_serial.cpp.o
+/mnt/c/Users/nicol/Desktop/Githubrework/worktrees/Projet801/apps/wfc_dungeon.cpp:38:61: warning: "/*" within comment [-Wcomment]
+   38 |  * Mirrors the convention used by the sample files (`samples/*.txt`):
+      |                                                              
+[ 31%] Linking CXX executable wfc_serial
+[ 33%] Linking CXX executable test_bitset
+[ 35%] Linking CXX static library libwfc_omp_lib.a
+[ 35%] Built target wfc_omp_lib
+[ 37%] Building CXX object CMakeFiles/test_grid.dir/tests/test_grid.cpp.o
+[ 40%] Built target test_bitset
+[ 40%] Linking CXX executable wfc_dungeon
+[ 42%] Building CXX object CMakeFiles/test_grid_io.dir/tests/test_grid_io.cpp.o
+[ 42%] Built target wfc_serial
+[ 44%] Building CXX object CMakeFiles/test_tileset.dir/tests/test_tileset.cpp.o
+[ 46%] Linking CXX executable test_grid
+[ 46%] Built target wfc_dungeon
+[ 48%] Building CXX object CMakeFiles/test_overlap.dir/tests/test_overlap.cpp.o
+[ 51%] Linking CXX executable test_tileset
+[ 53%] Linking CXX executable test_grid_io
+[ 53%] Built target test_grid
+[ 55%] Building CXX object CMakeFiles/test_wave.dir/tests/test_wave.cpp.o
+[ 57%] Linking CXX executable test_overlap
+[ 57%] Built target test_tileset
+[ 57%] Built target test_grid_io
+[ 60%] Building CXX object CMakeFiles/test_solver_common.dir/tests/test_solver_common.cpp.o
+[ 62%] Building CXX object CMakeFiles/test_solver.dir/tests/test_solver.cpp.o
+[ 64%] Linking CXX executable test_wave
+[ 64%] Built target test_overlap
+[ 66%] Building CXX object CMakeFiles/test_edge_cases.dir/tests/test_edge_cases.cpp.o
+[ 66%] Built target test_wave
+[ 68%] Building CXX object CMakeFiles/test_parallel_attempts.dir/tests/test_parallel_attempts.cpp.o
+[ 71%] Linking CXX executable test_solver
+[ 73%] Linking CXX executable test_solver_common
+[ 73%] Built target test_solver_common
+[ 73%] Built target test_solver
+[ 75%] Building CXX object CMakeFiles/test_symmetries.dir/tests/test_symmetries.cpp.o
+[ 77%] Building CXX object CMakeFiles/test_backtrack.dir/tests/test_backtrack.cpp.o
+[ 80%] Linking CXX executable test_parallel_attempts
+[ 82%] Linking CXX executable test_edge_cases
+[ 84%] Built target test_parallel_attempts
+[ 84%] Linking CXX executable test_symmetries
+[ 86%] Building CXX object CMakeFiles/test_solver_omp.dir/tests/test_solver_omp.cpp.o
+[ 88%] Linking CXX executable test_backtrack
+[ 88%] Built target test_edge_cases
+[ 88%] Built target test_symmetries
+[ 91%] Building CXX object CMakeFiles/wfc_omp.dir/apps/wfc_omp.cpp.o
+[ 93%] Building CXX object CMakeFiles/wfc_benchmark.dir/apps/benchmark.cpp.o
+[ 93%] Built target test_backtrack
+[ 95%] Linking CXX executable test_solver_omp
+[ 97%] Linking CXX executable wfc_omp
+[100%] Linking CXX executable wfc_benchmark
+[100%] Built target test_solver_omp
+[100%] Built target wfc_omp
+[100%] Built target wfc_benchmark
+Internal ctest changing into directory: /mnt/c/Users/nicol/Desktop/Githubrework/worktrees/Projet801/build-wsl
+Test project /mnt/c/Users/nicol/Desktop/Githubrework/worktrees/Projet801/build-wsl
+      Start  1: test_bitset
+ 1/13 Test  #1: test_bitset ......................   Passed    0.00 sec
+      Start  2: test_grid
+ 2/13 Test  #2: test_grid ........................   Passed    0.00 sec
+      Start  3: test_grid_io
+ 3/13 Test  #3: test_grid_io .....................   Passed    0.01 sec
+      Start  4: test_tileset
+ 4/13 Test  #4: test_tileset .....................   Passed    0.00 sec
+      Start  5: test_overlap
+ 5/13 Test  #5: test_overlap .....................   Passed    0.00 sec
+      Start  6: test_wave
+ 6/13 Test  #6: test_wave ........................   Passed    0.00 sec
+      Start  7: test_solver_common
+ 7/13 Test  #7: test_solver_common ...............   Passed    0.01 sec
+      Start  8: test_solver
+ 8/13 Test  #8: test_solver ......................   Passed    0.13 sec
+      Start  9: test_edge_cases
+ 9/13 Test  #9: test_edge_cases ..................   Passed    0.15 sec
+      Start 10: test_parallel_attempts
+10/13 Test #10: test_parallel_attempts ...........   Passed    0.01 sec
+      Start 11: test_symmetries
+11/13 Test #11: test_symmetries ..................   Passed    0.01 sec
+      Start 12: test_backtrack
+12/13 Test #12: test_backtrack ...................   Passed    0.01 sec
+      Start 13: test_solver_omp
+13/13 Test #13: test_solver_omp ..................   Passed    0.80 sec
+
+100% tests passed, 0 tests failed out of 13
+
+Total Test time (real) =   1.29 sec
+configure_exit=0 build_exit=0 tests_exit=0

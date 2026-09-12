@@ -1,0 +1,7 @@
+label,backend,threads,sample,N,rows,cols,seed,repeat,success,attempts,collapses,propagations,rules_s,solve_s,total_s
+serial_1_64,serial,1,samples/binary_5x5.txt,2,64,64,41,0,1,1,2074,16127,4.4071e-05,0.208128,0.208169
+serial_1_64,serial,1,samples/binary_5x5.txt,2,64,64,42,1,1,1,2095,16207,4.4071e-05,0.230204,0.230222
+serial_1_64,serial,1,samples/binary_5x5.txt,2,64,64,43,2,1,1,2140,16305,4.4071e-05,0.211757,0.211774
+serial_1_64,serial,1,samples/binary_5x5.txt,2,64,64,44,3,1,1,2101,16143,4.4071e-05,0.20809,0.208109
+serial_1_64,serial,1,samples/binary_5x5.txt,2,64,64,45,4,1,1,2060,16187,4.4071e-05,0.212073,0.212091
+serial_1_64,serial,1,samples/binary_5x5.txt,2,64,64,46,5,1,1,2054,16101,4.4071e-05,0.21457,0.214589

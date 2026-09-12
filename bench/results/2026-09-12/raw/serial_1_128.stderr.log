@@ -1,0 +1,8 @@
+sample=samples/binary_5x5.txt N=2 tiles=11 max_value=1 rules_s=2.5963e-05
+[serial_1_128] serial t=1 128x128 rep=0 solve=3.40428s ok=1
+[serial_1_128] serial t=1 128x128 rep=1 solve=3.29294s ok=1
+[serial_1_128] serial t=1 128x128 rep=2 solve=3.50126s ok=1
+[serial_1_128] serial t=1 128x128 rep=3 solve=3.34768s ok=1
+[serial_1_128] serial t=1 128x128 rep=4 solve=3.33983s ok=1
+[serial_1_128] serial t=1 128x128 rep=5 solve=3.35775s ok=1
+completed 1 run groups -> bench/results/2026-09-12/raw/serial_1_128.csv

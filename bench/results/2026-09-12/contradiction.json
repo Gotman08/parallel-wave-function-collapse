@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "taskset",
+    "-c",
+    "0",
+    "build-wsl/wfc_serial",
+    "samples/binary_checker.txt",
+    "--rows",
+    "3",
+    "--cols",
+    "3",
+    "-N",
+    "2",
+    "--seed",
+    "42",
+    "--attempts",
+    "1"
+  ],
+  "exit_code": 0,
+  "stdout": "backend     : serial\ntiles       : 2 (max value 1)\nrules build : 2.3116e-05 s\nsolve       : 1.1796e-05 s\ntotal       : 3.727e-05 s\nsuccess     : no\nattempts    : 1\ncollapses   : 1\npropagations: 9\n",
+  "stderr": "warning: solver failed after 1 attempts\n"
+}
