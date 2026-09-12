@@ -59,6 +59,15 @@ The ratio on the right is serial median divided by backend median; values below 
 
 This is a finite CPU comparison on one binary sample. The guest topology, CPU frequency, operating-system scheduling and OpenMP wait policy can affect results. The five common seeds include variation in generated problems as well as timing noise; the IQR is not a confidence interval. No peak-memory, GPU, cluster or editor performance claim is made. Historical results and illustrations remain separate from the current evidence.
 
+| Area | Status and reason |
+|---|---|
+| Kokkos and GPU | Not measured (non mesuré): Kokkos was not configured in the validated build, so this campaign has no Kokkos or GPU execution target. |
+| Unreal Engine | Not measured (non mesuré): the external editor and plugin were not exercised by this WSL CPU campaign. |
+| Peak memory and energy | Not measured (non mesuré): the collector records solver timing and success, without peak-memory or energy instrumentation. |
+| Cluster scaling | Not measured (non mesuré): the current campaign used the local WSL guest; no new cluster run was scheduled. |
+| Sanitizers and coverage | Not measured (non mesuré): validation used the existing Release build and CTest suites, without sanitizer or coverage instrumentation. |
+| LaTeX build | Not measured (non mesuré): references were checked as files; the report and slides were not compiled in this overhaul. |
+
 ## Reproducibility
 
 | Component | Recorded setting |
@@ -75,9 +84,16 @@ This is a finite CPU comparison on one binary sample. The guest topology, CPU fr
 | Repetitions | One excluded warm-up; five measured seeds 42, 43, 44, 45, 46 |
 | Statistic | Median and inclusive linear quartiles of existing `solve_s` |
 
-From a clone of this branch, build with the commands below, then run:
+Once this branch is published, the complete path from a clone to regenerated figures is:
 
 ```bash
+git clone --branch chore/repo-overhaul https://github.com/Gotman08/Projet801.git
+cd Projet801
+sudo apt-get install build-essential cmake python3-venv
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
+  -DUSE_OMP=ON -DUSE_KOKKOS=OFF -DBUILD_DUNGEON=ON
+cmake --build build --parallel 2
+ctest --test-dir build --output-on-failure
 BUILD_DIR=build PYTHON=python3 bash bench/run.sh
 python3 -m venv .venv
 .venv/bin/python -m pip install -r bench/requirements.txt
