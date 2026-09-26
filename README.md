@@ -1,4 +1,4 @@
-# Wave Function Collapse : Projet 801
+# Parallel Wave Function Collapse
 
 Implémentation C++17 du *Wave Function Collapse overlapping model* (WFC), avec
 trois backends : série, OpenMP (tâches explicites), Kokkos. Le sujet complet
