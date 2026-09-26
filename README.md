@@ -1,4 +1,4 @@
-# Wave Function Collapse: Project 801
+# Parallel Wave Function Collapse
 
 The serial C++17 solver completes the recorded **128 × 128** binary workload in **3.35 s median**, versus **8.54 s with OpenMP at eight threads** under the pinned WSL2 CPU and passive-wait protocol. All **50 measured solves** succeeded. [Raw measurements](bench/results/2026-09-12/runs.csv).
 
